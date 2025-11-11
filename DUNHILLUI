@@ -591,4 +591,204 @@ SettingsPadding.PaddingLeft = UDim.new(0, 15)
 SettingsPadding.PaddingRight = UDim.new(0, 15)
 SettingsPadding.Parent = Settings
 
-local SettingsTitle = Instance.new
+local SettingsTitle = Instance.new("TextLabel")
+SettingsTitle.Text = "⚙️ Settings"
+SettingsTitle.Size = UDim2.new(1, -20, 0, 30)
+SettingsTitle.BackgroundTransparency = 1
+SettingsTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+SettingsTitle.Font = Enum.Font.GothamBold
+SettingsTitle.TextSize = 18
+SettingsTitle.TextXAlignment = Enum.TextXAlignment.Left
+SettingsTitle.Parent = Settings
+
+-- Function to create setting toggles
+local function CreateToggle(name, desc, defaultState)
+	local ToggleFrame = Instance.new("Frame")
+	ToggleFrame.Size = UDim2.new(1, -20, 0, 60)
+	ToggleFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+	ToggleFrame.BorderSizePixel = 0
+	ToggleFrame.Parent = Settings
+	
+	local ToggleCorner = Instance.new("UICorner")
+	ToggleCorner.CornerRadius = UDim.new(0, 10)
+	ToggleCorner.Parent = ToggleFrame
+	
+	local ToggleName = Instance.new("TextLabel")
+	ToggleName.Text = name
+	ToggleName.Size = UDim2.new(1, -100, 0, 25)
+	ToggleName.Position = UDim2.new(0, 15, 0, 8)
+	ToggleName.BackgroundTransparency = 1
+	ToggleName.TextColor3 = Color3.fromRGB(255, 255, 255)
+	ToggleName.Font = Enum.Font.GothamSemibold
+	ToggleName.TextSize = 14
+	ToggleName.TextXAlignment = Enum.TextXAlignment.Left
+	ToggleName.Parent = ToggleFrame
+	
+	local ToggleDesc = Instance.new("TextLabel")
+	ToggleDesc.Text = desc
+	ToggleDesc.Size = UDim2.new(1, -100, 0, 20)
+	ToggleDesc.Position = UDim2.new(0, 15, 0, 32)
+	ToggleDesc.BackgroundTransparency = 1
+	ToggleDesc.TextColor3 = Color3.fromRGB(120, 120, 130)
+	ToggleDesc.Font = Enum.Font.Gotham
+	ToggleDesc.TextSize = 11
+	ToggleDesc.TextXAlignment = Enum.TextXAlignment.Left
+	ToggleDesc.Parent = ToggleFrame
+	
+	local ToggleButton = Instance.new("TextButton")
+	ToggleButton.Size = UDim2.new(0, 50, 0, 26)
+	ToggleButton.Position = UDim2.new(1, -65, 0.5, -13)
+	ToggleButton.BackgroundColor3 = defaultState and Color3.fromRGB(138, 43, 226) or Color3.fromRGB(50, 50, 60)
+	ToggleButton.Text = ""
+	ToggleButton.Parent = ToggleFrame
+	
+	local ToggleBtnCorner = Instance.new("UICorner")
+	ToggleBtnCorner.CornerRadius = UDim.new(1, 0)
+	ToggleBtnCorner.Parent = ToggleButton
+	
+	local ToggleCircle = Instance.new("Frame")
+	ToggleCircle.Size = UDim2.new(0, 20, 0, 20)
+	ToggleCircle.Position = defaultState and UDim2.new(1, -23, 0.5, -10) or UDim2.new(0, 3, 0.5, -10)
+	ToggleCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ToggleCircle.Parent = ToggleButton
+	
+	local CircleCorner = Instance.new("UICorner")
+	CircleCorner.CornerRadius = UDim.new(1, 0)
+	CircleCorner.Parent = ToggleCircle
+	
+	local isEnabled = defaultState
+	ToggleButton.MouseButton1Click:Connect(function()
+		isEnabled = not isEnabled
+		if isEnabled then
+			smoothTween(ToggleButton, {BackgroundColor3 = Color3.fromRGB(138, 43, 226)}, 0.3)
+			smoothTween(ToggleCircle, {Position = UDim2.new(1, -23, 0.5, -10)}, 0.3)
+		else
+			smoothTween(ToggleButton, {BackgroundColor3 = Color3.fromRGB(50, 50, 60)}, 0.3)
+			smoothTween(ToggleCircle, {Position = UDim2.new(0, 3, 0.5, -10)}, 0.3)
+		end
+	end)
+	
+	return ToggleFrame
+end
+
+-- Create Settings
+CreateToggle("Auto Execute", "Automatically execute scripts on join", false)
+CreateToggle("Save Tabs", "Remember last opened tab", true)
+CreateToggle("Top Most", "Keep UI above all windows", false)
+CreateToggle("Notifications", "Show execution notifications", true)
+
+-- Credits Section
+local CreditsFrame = Instance.new("Frame")
+CreditsFrame.Size = UDim2.new(1, -20, 0, 100)
+CreditsFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+CreditsFrame.BorderSizePixel = 0
+CreditsFrame.Parent = Settings
+
+local CreditsCorner = Instance.new("UICorner")
+CreditsCorner.CornerRadius = UDim.new(0, 10)
+CreditsCorner.Parent = CreditsFrame
+
+local CreditsTitle = Instance.new("TextLabel")
+CreditsTitle.Text = "💎 Credits"
+CreditsTitle.Size = UDim2.new(1, -20, 0, 25)
+CreditsTitle.Position = UDim2.new(0, 15, 0, 10)
+CreditsTitle.BackgroundTransparency = 1
+CreditsTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+CreditsTitle.Font = Enum.Font.GothamBold
+CreditsTitle.TextSize = 14
+CreditsTitle.TextXAlignment = Enum.TextXAlignment.Left
+CreditsTitle.Parent = CreditsFrame
+
+local CreditsText = Instance.new("TextLabel")
+CreditsText.Text = "Developed by: RezxyStore x ChatGPT\nUI Enhanced by: Claude AI (Ultra Gacor Edition)\nVersion: 2.0 Premium"
+CreditsText.Size = UDim2.new(1, -30, 0, 60)
+CreditsText.Position = UDim2.new(0, 15, 0, 35)
+CreditsText.BackgroundTransparency = 1
+CreditsText.TextColor3 = Color3.fromRGB(150, 150, 160)
+CreditsText.Font = Enum.Font.Gotham
+CreditsText.TextSize = 11
+CreditsText.TextXAlignment = Enum.TextXAlignment.Left
+CreditsText.TextYAlignment = Enum.TextYAlignment.Top
+CreditsText.Parent = CreditsFrame
+
+-- Initialize: Show Home tab as active
+wait(0.1)
+local homeTab = TabHolder:FindFirstChild("Home")
+if homeTab then
+	homeTab.BackgroundColor3 = Color3.fromRGB(138, 43, 226)
+	local icon = homeTab:FindFirstChild("TextLabel")
+	if icon then
+		icon.TextColor3 = Color3.fromRGB(255, 255, 255)
+	end
+	for _, child in pairs(homeTab:GetChildren()) do
+		if child:IsA("TextLabel") and child ~= icon then
+			child.TextColor3 = Color3.fromRGB(255, 255, 255)
+		end
+	end
+	currentTab = homeTab
+end
+
+-- 🎉 Notification System
+local function ShowNotification(title, message, duration)
+	local NotifFrame = Instance.new("Frame")
+	NotifFrame.Size = UDim2.new(0, 300, 0, 0)
+	NotifFrame.Position = UDim2.new(1, -320, 1, -20)
+	NotifFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+	NotifFrame.BorderSizePixel = 0
+	NotifFrame.Parent = ScreenGui
+	
+	local NotifCorner = Instance.new("UICorner")
+	NotifCorner.CornerRadius = UDim.new(0, 10)
+	NotifCorner.Parent = NotifFrame
+	
+	local NotifGradient = Instance.new("UIGradient")
+	NotifGradient.Color = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, Color3.fromRGB(138, 43, 226)),
+		ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 30))
+	})
+	NotifGradient.Rotation = 90
+	NotifGradient.Parent = NotifFrame
+	
+	local NotifTitle = Instance.new("TextLabel")
+	NotifTitle.Text = "⚡ " .. title
+	NotifTitle.Size = UDim2.new(1, -20, 0, 25)
+	NotifTitle.Position = UDim2.new(0, 10, 0, 8)
+	NotifTitle.BackgroundTransparency = 1
+	NotifTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+	NotifTitle.Font = Enum.Font.GothamBold
+	NotifTitle.TextSize = 13
+	NotifTitle.TextXAlignment = Enum.TextXAlignment.Left
+	NotifTitle.Parent = NotifFrame
+	
+	local NotifMessage = Instance.new("TextLabel")
+	NotifMessage.Text = message
+	NotifMessage.Size = UDim2.new(1, -20, 0, 40)
+	NotifMessage.Position = UDim2.new(0, 10, 0, 30)
+	NotifMessage.BackgroundTransparency = 1
+	NotifMessage.TextColor3 = Color3.fromRGB(180, 180, 190)
+	NotifMessage.Font = Enum.Font.Gotham
+	NotifMessage.TextSize = 11
+	NotifMessage.TextXAlignment = Enum.TextXAlignment.Left
+	NotifMessage.TextYAlignment = Enum.TextYAlignment.Top
+	NotifMessage.TextWrapped = true
+	NotifMessage.Parent = NotifFrame
+	
+	-- Animate in
+	smoothTween(NotifFrame, {Size = UDim2.new(0, 300, 0, 80)}, 0.4)
+	smoothTween(NotifFrame, {Position = UDim2.new(1, -320, 1, -100)}, 0.4)
+	
+	-- Animate out
+	wait(duration or 3)
+	smoothTween(NotifFrame, {Position = UDim2.new(1, -320, 1, -20)}, 0.3)
+	smoothTween(NotifFrame, {Size = UDim2.new(0, 300, 0, 0)}, 0.3)
+	wait(0.3)
+	NotifFrame:Destroy()
+end
+
+-- Show welcome notification
+wait(0.6)
+ShowNotification("Welcome!", "DUNHILL Executor Ultra Gacor Edition loaded successfully! 🔥", 4)
+
+print("🔥 DUNHILL EXECUTOR ULTRA GACOR EDITION LOADED! 🔥")
+print("✨ Version 2.0 Premium - Enhanced by Claude AI")
+print("⚡ All features ready to use!")
