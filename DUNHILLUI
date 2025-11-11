@@ -1,107 +1,69 @@
--- 🔥 DUNHILL UI | ULTRA PREMIUM EXECUTOR GUI
--- Compatible with Delta / Xeno / Arceus X
--- Super Gacor Edition with Animations & Gradients
+-- 🌟 PREMIUM EXECUTOR UI | Modern Hub Style
+-- Inspired by Chiyo Hub & Vinzz Hub
+-- Compatible with Delta / Xeno / Arceus X / Fluxus
+-- Features: Script Hub, Executor, Games Library, Settings
 
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local playerGui = player:FindFirstChildOfClass("PlayerGui") or player:WaitForChild("PlayerGui")
 
--- 🎨 Animation Functions
-local function smoothTween(object, properties, duration)
-	local tween = TweenService:Create(
-		object,
-		TweenInfo.new(duration or 0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out),
-		properties
-	)
-	tween:Play()
-	return tween
-end
+-- 🎨 Theme Colors
+local Theme = {
+    Background = Color3.fromRGB(12, 12, 16),
+    Secondary = Color3.fromRGB(18, 18, 24),
+    Accent = Color3.fromRGB(88, 101, 242), -- Discord Blue
+    AccentHover = Color3.fromRGB(108, 121, 255),
+    Text = Color3.fromRGB(255, 255, 255),
+    TextDim = Color3.fromRGB(180, 180, 190),
+    Success = Color3.fromRGB(67, 181, 129),
+    Warning = Color3.fromRGB(250, 166, 26),
+    Danger = Color3.fromRGB(237, 66, 69),
+}
 
 -- 🧱 GUI Root
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "DUNHILL_UI_PREMIUM"
+ScreenGui.Name = "PremiumExecutorUI"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = playerGui
 
--- 🪟 Main Window (Lebih Besar & Modern)
+-- 🪟 Main Window (Lebih besar dan modern)
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
-MainFrame.Size = UDim2.new(0, 600, 0, 400)
-MainFrame.Position = UDim2.new(0.5, -300, 0.5, -200)
-MainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 15)
+MainFrame.Size = UDim2.new(0, 650, 0, 420)
+MainFrame.Position = UDim2.new(0.5, -325, 0.5, -210)
+MainFrame.BackgroundColor3 = Theme.Background
 MainFrame.BorderSizePixel = 0
 MainFrame.Active = true
 MainFrame.Draggable = true
 MainFrame.ClipsDescendants = true
 MainFrame.Parent = ScreenGui
 
--- ✨ Intro Animation
-MainFrame.Size = UDim2.new(0, 0, 0, 0)
-smoothTween(MainFrame, {Size = UDim2.new(0, 600, 0, 400)}, 0.5)
+local MainCorner = Instance.new("UICorner")
+MainCorner.CornerRadius = UDim.new(0, 16)
+MainCorner.Parent = MainFrame
 
--- 🔳 UI Corners
-local Corner = Instance.new("UICorner")
-Corner.CornerRadius = UDim.new(0, 16)
-Corner.Parent = MainFrame
+-- ✨ Glow Effect
+local Glow = Instance.new("ImageLabel")
+Glow.Name = "Glow"
+Glow.AnchorPoint = Vector2.new(0.5, 0.5)
+Glow.Position = UDim2.new(0.5, 0, 0.5, 0)
+Glow.Size = UDim2.new(1, 50, 1, 50)
+Glow.BackgroundTransparency = 1
+Glow.Image = "rbxassetid://1316045217"
+Glow.ImageColor3 = Theme.Accent
+Glow.ImageTransparency = 0.85
+Glow.ScaleType = Enum.ScaleType.Slice
+Glow.SliceCenter = Rect.new(10, 10, 118, 118)
+Glow.ZIndex = 0
+Glow.Parent = MainFrame
 
--- 🌈 Gradient Background
-local Gradient = Instance.new("UIGradient")
-Gradient.Color = ColorSequence.new({
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(20, 15, 30)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(10, 10, 15))
-})
-Gradient.Rotation = 45
-Gradient.Parent = MainFrame
-
--- 💎 Accent Border
-local AccentBorder = Instance.new("Frame")
-AccentBorder.Name = "AccentBorder"
-AccentBorder.Size = UDim2.new(1, 0, 0, 2)
-AccentBorder.Position = UDim2.new(0, 0, 0, 50)
-AccentBorder.BackgroundColor3 = Color3.fromRGB(138, 43, 226)
-AccentBorder.BorderSizePixel = 0
-AccentBorder.Parent = MainFrame
-
-local BorderGradient = Instance.new("UIGradient")
-BorderGradient.Color = ColorSequence.new({
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(138, 43, 226)),
-	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 20, 147)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(138, 43, 226))
-})
-BorderGradient.Parent = AccentBorder
-
--- 🔥 Animated Gradient Border
-spawn(function()
-	while AccentBorder and AccentBorder.Parent do
-		smoothTween(BorderGradient, {Offset = Vector2.new(1, 0)}, 2)
-		wait(2)
-		BorderGradient.Offset = Vector2.new(-1, 0)
-	end
-end)
-
--- 🔳 Shadow Effect
-local Shadow = Instance.new("ImageLabel")
-Shadow.Name = "Shadow"
-Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
-Shadow.Position = UDim2.new(0.5, 0, 0.5, 8)
-Shadow.Size = UDim2.new(1, 50, 1, 50)
-Shadow.BackgroundTransparency = 1
-Shadow.Image = "rbxassetid://1316045217"
-Shadow.ImageColor3 = Color3.fromRGB(138, 43, 226)
-Shadow.ImageTransparency = 0.7
-Shadow.ScaleType = Enum.ScaleType.Slice
-Shadow.SliceCenter = Rect.new(10, 10, 118, 118)
-Shadow.ZIndex = 0
-Shadow.Parent = MainFrame
-
--- 🧭 Top Bar dengan Glass Effect
+-- 🧭 Top Bar dengan Gradient
 local TopBar = Instance.new("Frame")
 TopBar.Name = "TopBar"
 TopBar.Size = UDim2.new(1, 0, 0, 50)
-TopBar.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-TopBar.BackgroundTransparency = 0.3
+TopBar.BackgroundColor3 = Theme.Secondary
 TopBar.BorderSizePixel = 0
 TopBar.Parent = MainFrame
 
@@ -110,685 +72,489 @@ TopCorner.CornerRadius = UDim.new(0, 16)
 TopCorner.Parent = TopBar
 
 local TopGradient = Instance.new("UIGradient")
-TopGradient.Color = ColorSequence.new({
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(30, 25, 40)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 30))
-})
+TopGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(20, 20, 28)),
+    ColorSequenceKeypoint.new(1, Theme.Secondary)
+}
 TopGradient.Rotation = 90
 TopGradient.Parent = TopBar
 
--- 🔥 Logo Icon
-local LogoIcon = Instance.new("TextLabel")
-LogoIcon.Name = "Logo"
-LogoIcon.Text = "⚡"
-LogoIcon.TextColor3 = Color3.fromRGB(255, 215, 0)
-LogoIcon.Font = Enum.Font.GothamBold
-LogoIcon.TextSize = 24
-LogoIcon.BackgroundTransparency = 1
-LogoIcon.Position = UDim2.new(0, 15, 0, 10)
-LogoIcon.Size = UDim2.new(0, 30, 0, 30)
-LogoIcon.Parent = TopBar
+-- 🎯 Logo/Icon
+local Logo = Instance.new("TextLabel")
+Logo.Name = "Logo"
+Logo.Text = "⚡"
+Logo.TextColor3 = Theme.Accent
+Logo.Font = Enum.Font.GothamBold
+Logo.TextSize = 24
+Logo.BackgroundTransparency = 1
+Logo.Position = UDim2.new(0, 15, 0, 10)
+Logo.Size = UDim2.new(0, 30, 0, 30)
+Logo.Parent = TopBar
 
--- 🧠 Title dengan Glow Effect
+-- 🧠 Title
 local Title = Instance.new("TextLabel")
 Title.Name = "Title"
-Title.Text = "DUNHILL EXECUTOR"
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Text = "PREMIUM EXECUTOR"
+Title.TextColor3 = Theme.Text
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 18
 Title.BackgroundTransparency = 1
-Title.Position = UDim2.new(0, 55, 0, 8)
-Title.Size = UDim2.new(0.5, 0, 1, -16)
+Title.Position = UDim2.new(0, 50, 0, 8)
+Title.Size = UDim2.new(0, 250, 0, 20)
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.Parent = TopBar
 
-local TitleStroke = Instance.new("UIStroke")
-TitleStroke.Color = Color3.fromRGB(138, 43, 226)
-TitleStroke.Thickness = 1
-TitleStroke.Transparency = 0.5
-TitleStroke.Parent = Title
+local Subtitle = Instance.new("TextLabel")
+Subtitle.Name = "Subtitle"
+Subtitle.Text = "v2.0 • Modern Hub Interface"
+Subtitle.TextColor3 = Theme.TextDim
+Subtitle.Font = Enum.Font.Gotham
+Subtitle.TextSize = 11
+Subtitle.BackgroundTransparency = 1
+Subtitle.Position = UDim2.new(0, 50, 0, 28)
+Subtitle.Size = UDim2.new(0, 250, 0, 15)
+Subtitle.TextXAlignment = Enum.TextXAlignment.Left
+Subtitle.Parent = TopBar
 
--- 💫 Version Badge
-local VersionBadge = Instance.new("TextLabel")
-VersionBadge.Text = "ULTRA GACOR"
-VersionBadge.Size = UDim2.new(0, 90, 0, 20)
-VersionBadge.Position = UDim2.new(0, 55, 0, 28)
-VersionBadge.BackgroundColor3 = Color3.fromRGB(138, 43, 226)
-VersionBadge.TextColor3 = Color3.fromRGB(255, 255, 255)
-VersionBadge.Font = Enum.Font.GothamBold
-VersionBadge.TextSize = 10
-VersionBadge.Parent = TopBar
+-- 🔘 Top Right Buttons
+local function CreateTopButton(text, color, position)
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(0, 38, 0, 38)
+    btn.Position = position
+    btn.BackgroundColor3 = color
+    btn.Text = text
+    btn.TextColor3 = Theme.Text
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 16
+    btn.BorderSizePixel = 0
+    btn.Parent = TopBar
+    
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 10)
+    corner.Parent = btn
+    
+    -- Hover effect
+    btn.MouseEnter:Connect(function()
+        TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Theme.AccentHover}):Play()
+    end)
+    btn.MouseLeave:Connect(function()
+        TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = color}):Play()
+    end)
+    
+    return btn
+end
 
-local BadgeCorner = Instance.new("UICorner")
-BadgeCorner.CornerRadius = UDim.new(0, 5)
-BadgeCorner.Parent = VersionBadge
+local MinimizeBtn = CreateTopButton("_", Color3.fromRGB(30, 30, 40), UDim2.new(1, -140, 0, 6))
+local MaximizeBtn = CreateTopButton("□", Color3.fromRGB(30, 30, 40), UDim2.new(1, -95, 0, 6))
+local CloseBtn = CreateTopButton("✕", Theme.Danger, UDim2.new(1, -50, 0, 6))
 
--- ➖ Minimize Button
-local MinimizeButton = Instance.new("TextButton")
-MinimizeButton.Name = "Minimize"
-MinimizeButton.Size = UDim2.new(0, 35, 0, 35)
-MinimizeButton.Position = UDim2.new(1, -80, 0, 7)
-MinimizeButton.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
-MinimizeButton.Text = "─"
-MinimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-MinimizeButton.Font = Enum.Font.GothamBold
-MinimizeButton.TextSize = 14
-MinimizeButton.Parent = TopBar
-
-local MinCorner = Instance.new("UICorner")
-MinCorner.CornerRadius = UDim.new(0, 10)
-MinCorner.Parent = MinimizeButton
-
-MinimizeButton.MouseEnter:Connect(function()
-	smoothTween(MinimizeButton, {BackgroundColor3 = Color3.fromRGB(60, 60, 70)}, 0.2)
+CloseBtn.MouseButton1Click:Connect(function()
+    TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
+        Size = UDim2.new(0, 0, 0, 0)
+    }):Play()
+    wait(0.3)
+    ScreenGui:Destroy()
 end)
 
-MinimizeButton.MouseLeave:Connect(function()
-	smoothTween(MinimizeButton, {BackgroundColor3 = Color3.fromRGB(40, 40, 50)}, 0.2)
-end)
+-- 🧩 Sidebar Navigation
+local Sidebar = Instance.new("Frame")
+Sidebar.Name = "Sidebar"
+Sidebar.Size = UDim2.new(0, 160, 1, -50)
+Sidebar.Position = UDim2.new(0, 0, 0, 50)
+Sidebar.BackgroundColor3 = Theme.Secondary
+Sidebar.BorderSizePixel = 0
+Sidebar.Parent = MainFrame
 
--- ❌ Close Button dengan Hover Effect
-local CloseButton = Instance.new("TextButton")
-CloseButton.Name = "Close"
-CloseButton.Size = UDim2.new(0, 35, 0, 35)
-CloseButton.Position = UDim2.new(1, -40, 0, 7)
-CloseButton.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
-CloseButton.Text = "✕"
-CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-CloseButton.Font = Enum.Font.GothamBold
-CloseButton.TextSize = 16
-CloseButton.Parent = TopBar
+local SidebarPadding = Instance.new("UIPadding")
+SidebarPadding.PaddingTop = UDim.new(0, 15)
+SidebarPadding.PaddingBottom = UDim.new(0, 15)
+SidebarPadding.Parent = Sidebar
 
-local CloseCorner = Instance.new("UICorner")
-CloseCorner.CornerRadius = UDim.new(0, 10)
-CloseCorner.Parent = CloseButton
+local NavLayout = Instance.new("UIListLayout")
+NavLayout.Padding = UDim.new(0, 6)
+NavLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+NavLayout.SortOrder = Enum.SortOrder.LayoutOrder
+NavLayout.Parent = Sidebar
 
-CloseButton.MouseEnter:Connect(function()
-	smoothTween(CloseButton, {BackgroundColor3 = Color3.fromRGB(220, 53, 69)}, 0.2)
-	smoothTween(CloseButton, {Rotation = 90}, 0.3)
-end)
-
-CloseButton.MouseLeave:Connect(function()
-	smoothTween(CloseButton, {BackgroundColor3 = Color3.fromRGB(40, 40, 50)}, 0.2)
-	smoothTween(CloseButton, {Rotation = 0}, 0.3)
-end)
-
-CloseButton.MouseButton1Click:Connect(function()
-	smoothTween(MainFrame, {Size = UDim2.new(0, 0, 0, 0)}, 0.4)
-	wait(0.4)
-	ScreenGui:Destroy()
-end)
-
--- 🧩 Tabs Section dengan Gradient
-local TabHolder = Instance.new("Frame")
-TabHolder.Name = "TabHolder"
-TabHolder.Size = UDim2.new(0, 140, 1, -52)
-TabHolder.Position = UDim2.new(0, 0, 0, 52)
-TabHolder.BackgroundColor3 = Color3.fromRGB(15, 15, 22)
-TabHolder.BorderSizePixel = 0
-TabHolder.Parent = MainFrame
-
-local TabsLayout = Instance.new("UIListLayout")
-TabsLayout.Padding = UDim.new(0, 10)
-TabsLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-TabsLayout.SortOrder = Enum.SortOrder.LayoutOrder
-TabsLayout.Parent = TabHolder
-
-local TabPadding = Instance.new("UIPadding")
-TabPadding.PaddingTop = UDim.new(0, 15)
-TabPadding.Parent = TabHolder
-
--- 🧭 Content Section
+-- 🌑 Content Area
 local ContentFrame = Instance.new("Frame")
 ContentFrame.Name = "Content"
-ContentFrame.Size = UDim2.new(1, -142, 1, -54)
-ContentFrame.Position = UDim2.new(0, 141, 0, 53)
-ContentFrame.BackgroundColor3 = Color3.fromRGB(12, 12, 18)
+ContentFrame.Size = UDim2.new(1, -160, 1, -50)
+ContentFrame.Position = UDim2.new(0, 160, 0, 50)
+ContentFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
 ContentFrame.BorderSizePixel = 0
+ContentFrame.ClipsDescendants = true
 ContentFrame.Parent = MainFrame
 
-local ContentCorner = Instance.new("UICorner")
-ContentCorner.CornerRadius = UDim.new(0, 12)
-ContentCorner.Parent = ContentFrame
+-- 📑 Tab System
+local ActiveTab = nil
+local Pages = {}
 
--- 🌟 Tab Creation Function dengan Icon
-local currentTab = nil
-local function CreateTab(name, icon)
-	local Tab = Instance.new("TextButton")
-	Tab.Name = name
-	Tab.Text = ""
-	Tab.Size = UDim2.new(1, -20, 0, 45)
-	Tab.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
-	Tab.BorderSizePixel = 0
-	Tab.AutoButtonColor = false
-	Tab.Parent = TabHolder
-	
-	local TabCorner = Instance.new("UICorner")
-	TabCorner.CornerRadius = UDim.new(0, 10)
-	TabCorner.Parent = Tab
-
-	local TabIcon = Instance.new("TextLabel")
-	TabIcon.Text = icon
-	TabIcon.Size = UDim2.new(0, 25, 0, 25)
-	TabIcon.Position = UDim2.new(0, 10, 0.5, -12)
-	TabIcon.BackgroundTransparency = 1
-	TabIcon.TextColor3 = Color3.fromRGB(180, 180, 190)
-	TabIcon.Font = Enum.Font.GothamBold
-	TabIcon.TextSize = 18
-	TabIcon.Parent = Tab
-
-	local TabLabel = Instance.new("TextLabel")
-	TabLabel.Text = name
-	TabLabel.Size = UDim2.new(1, -45, 1, 0)
-	TabLabel.Position = UDim2.new(0, 40, 0, 0)
-	TabLabel.BackgroundTransparency = 1
-	TabLabel.TextColor3 = Color3.fromRGB(180, 180, 190)
-	TabLabel.Font = Enum.Font.GothamSemibold
-	TabLabel.TextSize = 14
-	TabLabel.TextXAlignment = Enum.TextXAlignment.Left
-	TabLabel.Parent = Tab
-
-	-- Hover Effects
-	Tab.MouseEnter:Connect(function()
-		if currentTab ~= Tab then
-			smoothTween(Tab, {BackgroundColor3 = Color3.fromRGB(35, 35, 45)}, 0.2)
-			smoothTween(Tab, {Size = UDim2.new(1, -15, 0, 45)}, 0.2)
-		end
-	end)
-
-	Tab.MouseLeave:Connect(function()
-		if currentTab ~= Tab then
-			smoothTween(Tab, {BackgroundColor3 = Color3.fromRGB(25, 25, 35)}, 0.2)
-			smoothTween(Tab, {Size = UDim2.new(1, -20, 0, 45)}, 0.2)
-		end
-	end)
-
-	Tab.MouseButton1Click:Connect(function()
-		-- Reset all tabs
-		for _, button in pairs(TabHolder:GetChildren()) do
-			if button:IsA("TextButton") then
-				smoothTween(button, {BackgroundColor3 = Color3.fromRGB(25, 25, 35)}, 0.3)
-				smoothTween(button, {Size = UDim2.new(1, -20, 0, 45)}, 0.2)
-				local icon = button:FindFirstChild("TextLabel")
-				local label = button:FindFirstChild("TextLabel", true)
-				if icon then smoothTween(icon, {TextColor3 = Color3.fromRGB(180, 180, 190)}, 0.3) end
-			end
-		end
-		
-		-- Activate clicked tab
-		currentTab = Tab
-		smoothTween(Tab, {BackgroundColor3 = Color3.fromRGB(138, 43, 226)}, 0.3)
-		smoothTween(TabIcon, {TextColor3 = Color3.fromRGB(255, 255, 255)}, 0.3)
-		smoothTween(TabLabel, {TextColor3 = Color3.fromRGB(255, 255, 255)}, 0.3)
-		
-		-- Switch pages
-		for _, frame in pairs(ContentFrame:GetChildren()) do
-			if frame:IsA("Frame") or frame:IsA("ScrollingFrame") then
-				frame.Visible = false
-			end
-		end
-		local page = ContentFrame:FindFirstChild(name)
-		if page then
-			page.Visible = true
-			page.GroupTransparency = 1
-			smoothTween(page, {GroupTransparency = 0}, 0.4)
-		end
-	end)
-	
-	return Tab
+local function CreateNavButton(icon, name, order)
+    local btn = Instance.new("TextButton")
+    btn.Name = name .. "Btn"
+    btn.Size = UDim2.new(1, -20, 0, 45)
+    btn.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
+    btn.BorderSizePixel = 0
+    btn.Text = ""
+    btn.LayoutOrder = order
+    btn.AutoButtonColor = false
+    btn.Parent = Sidebar
+    
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 10)
+    corner.Parent = btn
+    
+    local iconLabel = Instance.new("TextLabel")
+    iconLabel.Text = icon
+    iconLabel.Size = UDim2.new(0, 30, 1, 0)
+    iconLabel.Position = UDim2.new(0, 10, 0, 0)
+    iconLabel.BackgroundTransparency = 1
+    iconLabel.TextColor3 = Theme.TextDim
+    iconLabel.Font = Enum.Font.GothamBold
+    iconLabel.TextSize = 18
+    iconLabel.Parent = btn
+    
+    local label = Instance.new("TextLabel")
+    label.Text = name
+    label.Size = UDim2.new(1, -45, 1, 0)
+    label.Position = UDim2.new(0, 40, 0, 0)
+    label.BackgroundTransparency = 1
+    label.TextColor3 = Theme.TextDim
+    label.Font = Enum.Font.GothamBold
+    label.TextSize = 13
+    label.TextXAlignment = Enum.TextXAlignment.Left
+    label.Parent = btn
+    
+    local indicator = Instance.new("Frame")
+    indicator.Name = "Indicator"
+    indicator.Size = UDim2.new(0, 4, 0, 20)
+    indicator.Position = UDim2.new(0, 0, 0.5, -10)
+    indicator.BackgroundColor3 = Theme.Accent
+    indicator.BorderSizePixel = 0
+    indicator.Visible = false
+    indicator.Parent = btn
+    
+    local indicatorCorner = Instance.new("UICorner")
+    indicatorCorner.CornerRadius = UDim.new(1, 0)
+    indicatorCorner.Parent = indicator
+    
+    -- Create page
+    local page = Instance.new("ScrollingFrame")
+    page.Name = name
+    page.Size = UDim2.new(1, 0, 1, 0)
+    page.BackgroundTransparency = 1
+    page.BorderSizePixel = 0
+    page.ScrollBarThickness = 6
+    page.ScrollBarImageColor3 = Theme.Accent
+    page.Visible = false
+    page.CanvasSize = UDim2.new(0, 0, 0, 0)
+    page.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    page.Parent = ContentFrame
+    
+    local pagePadding = Instance.new("UIPadding")
+    pagePadding.PaddingTop = UDim.new(0, 20)
+    pagePadding.PaddingLeft = UDim.new(0, 20)
+    pagePadding.PaddingRight = UDim.new(0, 20)
+    pagePadding.PaddingBottom = UDim.new(0, 20)
+    pagePadding.Parent = page
+    
+    local pageLayout = Instance.new("UIListLayout")
+    pageLayout.Padding = UDim.new(0, 12)
+    pageLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    pageLayout.Parent = page
+    
+    Pages[name] = page
+    
+    btn.MouseButton1Click:Connect(function()
+        -- Deactivate all
+        for _, child in pairs(Sidebar:GetChildren()) do
+            if child:IsA("TextButton") then
+                TweenService:Create(child, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(25, 25, 35)}):Play()
+                local ind = child:FindFirstChild("Indicator")
+                if ind then ind.Visible = false end
+                for _, lbl in pairs(child:GetChildren()) do
+                    if lbl:IsA("TextLabel") then
+                        lbl.TextColor3 = Theme.TextDim
+                    end
+                end
+            end
+        end
+        
+        for _, pg in pairs(ContentFrame:GetChildren()) do
+            if pg:IsA("ScrollingFrame") then
+                pg.Visible = false
+            end
+        end
+        
+        -- Activate current
+        TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Theme.Accent}):Play()
+        indicator.Visible = true
+        iconLabel.TextColor3 = Theme.Text
+        label.TextColor3 = Theme.Text
+        page.Visible = true
+        ActiveTab = name
+    end)
+    
+    return page
 end
 
--- 🪄 Create Tabs dengan Icons
-CreateTab("Home", "🏠")
-CreateTab("Executor", "⚡")
-CreateTab("Scripts", "📜")
-CreateTab("Settings", "⚙️")
+-- 🎮 Create Navigation
+local HomePage = CreateNavButton("🏠", "Home", 1)
+local ExecutorPage = CreateNavButton("⚡", "Executor", 2)
+local ScriptsPage = CreateNavButton("📜", "Scripts", 3)
+local GamesPage = CreateNavButton("🎮", "Games", 4)
+local SettingsPage = CreateNavButton("⚙️", "Settings", 5)
 
--- 📃 Home Page dengan Welcome Screen
-local Home = Instance.new("ScrollingFrame")
-Home.Name = "Home"
-Home.Size = UDim2.new(1, 0, 1, 0)
-Home.BackgroundTransparency = 1
-Home.BorderSizePixel = 0
-Home.ScrollBarThickness = 4
-Home.ScrollBarImageColor3 = Color3.fromRGB(138, 43, 226)
-Home.Parent = ContentFrame
-
-local HomePadding = Instance.new("UIPadding")
-HomePadding.PaddingLeft = UDim.new(0, 20)
-HomePadding.PaddingRight = UDim.new(0, 20)
-HomePadding.PaddingTop = UDim.new(0, 20)
-HomePadding.Parent = Home
-
-local WelcomeTitle = Instance.new("TextLabel")
-WelcomeTitle.Text = "🔥 Welcome to DUNHILL"
-WelcomeTitle.Size = UDim2.new(1, 0, 0, 40)
-WelcomeTitle.BackgroundTransparency = 1
-WelcomeTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-WelcomeTitle.Font = Enum.Font.GothamBold
-WelcomeTitle.TextSize = 24
-WelcomeTitle.TextXAlignment = Enum.TextXAlignment.Left
-WelcomeTitle.Parent = Home
-
-local WelcomeDesc = Instance.new("TextLabel")
-WelcomeDesc.Text = "Ultra Premium Executor - Gacor Edition"
-WelcomeDesc.Size = UDim2.new(1, 0, 0, 25)
-WelcomeDesc.Position = UDim2.new(0, 0, 0, 45)
-WelcomeDesc.BackgroundTransparency = 1
-WelcomeDesc.TextColor3 = Color3.fromRGB(150, 150, 160)
-WelcomeDesc.Font = Enum.Font.Gotham
-WelcomeDesc.TextSize = 14
-WelcomeDesc.TextXAlignment = Enum.TextXAlignment.Left
-WelcomeDesc.Parent = Home
-
--- 📊 Stats Cards
-local function CreateStatCard(title, value, icon, yPos)
-	local Card = Instance.new("Frame")
-	Card.Size = UDim2.new(0.48, 0, 0, 80)
-	Card.Position = UDim2.new((yPos % 2) * 0.52, 0, 0, 90 + math.floor(yPos / 2) * 90)
-	Card.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-	Card.BorderSizePixel = 0
-	Card.Parent = Home
-	
-	local CardCorner = Instance.new("UICorner")
-	CardCorner.CornerRadius = UDim.new(0, 12)
-	CardCorner.Parent = Card
-	
-	local CardIcon = Instance.new("TextLabel")
-	CardIcon.Text = icon
-	CardIcon.Size = UDim2.new(0, 40, 0, 40)
-	CardIcon.Position = UDim2.new(0, 15, 0, 10)
-	CardIcon.BackgroundTransparency = 1
-	CardIcon.TextColor3 = Color3.fromRGB(138, 43, 226)
-	CardIcon.Font = Enum.Font.GothamBold
-	CardIcon.TextSize = 24
-	CardIcon.Parent = Card
-	
-	local CardTitle = Instance.new("TextLabel")
-	CardTitle.Text = title
-	CardTitle.Size = UDim2.new(1, -70, 0, 20)
-	CardTitle.Position = UDim2.new(0, 15, 0, 52)
-	CardTitle.BackgroundTransparency = 1
-	CardTitle.TextColor3 = Color3.fromRGB(150, 150, 160)
-	CardTitle.Font = Enum.Font.Gotham
-	CardTitle.TextSize = 11
-	CardTitle.TextXAlignment = Enum.TextXAlignment.Left
-	CardTitle.Parent = Card
-	
-	local CardValue = Instance.new("TextLabel")
-	CardValue.Text = value
-	CardValue.Size = UDim2.new(0, 100, 0, 25)
-	CardValue.Position = UDim2.new(0, 65, 0, 15)
-	CardValue.BackgroundTransparency = 1
-	CardValue.TextColor3 = Color3.fromRGB(255, 255, 255)
-	CardValue.Font = Enum.Font.GothamBold
-	CardValue.TextSize = 18
-	CardValue.TextXAlignment = Enum.TextXAlignment.Left
-	CardValue.Parent = Card
-	
-	return Card
+-- 🎨 UI Helper Functions
+local function CreateSection(parent, title)
+    local section = Instance.new("Frame")
+    section.Size = UDim2.new(1, 0, 0, 0)
+    section.AutomaticSize = Enum.AutomaticSize.Y
+    section.BackgroundColor3 = Theme.Secondary
+    section.BorderSizePixel = 0
+    section.Parent = parent
+    
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 12)
+    corner.Parent = section
+    
+    local padding = Instance.new("UIPadding")
+    padding.PaddingTop = UDim.new(0, 15)
+    padding.PaddingLeft = UDim.new(0, 15)
+    padding.PaddingRight = UDim.new(0, 15)
+    padding.PaddingBottom = UDim.new(0, 15)
+    padding.Parent = section
+    
+    local layout = Instance.new("UIListLayout")
+    layout.Padding = UDim.new(0, 10)
+    layout.SortOrder = Enum.SortOrder.LayoutOrder
+    layout.Parent = section
+    
+    if title then
+        local titleLabel = Instance.new("TextLabel")
+        titleLabel.Text = title
+        titleLabel.Size = UDim2.new(1, 0, 0, 20)
+        titleLabel.BackgroundTransparency = 1
+        titleLabel.TextColor3 = Theme.Text
+        titleLabel.Font = Enum.Font.GothamBold
+        titleLabel.TextSize = 15
+        titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+        titleLabel.LayoutOrder = 0
+        titleLabel.Parent = section
+    end
+    
+    return section
 end
 
-CreateStatCard("Scripts Loaded", "247", "📜", 0)
-CreateStatCard("Executions", "1.2K", "⚡", 1)
-CreateStatCard("Uptime", "99.9%", "⏱️", 2)
-CreateStatCard("Performance", "GACOR", "🔥", 3)
-
--- 🚀 Executor Page
-local Executor = Instance.new("Frame")
-Executor.Name = "Executor"
-Executor.Size = UDim2.new(1, 0, 1, 0)
-Executor.BackgroundTransparency = 1
-Executor.Visible = false
-Executor.Parent = ContentFrame
-
-local ExecPadding = Instance.new("UIPadding")
-ExecPadding.PaddingLeft = UDim.new(0, 15)
-ExecPadding.PaddingRight = UDim.new(0, 15)
-ExecPadding.PaddingTop = UDim.new(0, 15)
-ExecPadding.PaddingBottom = UDim.new(0, 15)
-ExecPadding.Parent = Executor
-
-local ScriptBox = Instance.new("TextBox")
-ScriptBox.Size = UDim2.new(1, 0, 1, -50)
-ScriptBox.BackgroundColor3 = Color3.fromRGB(18, 18, 25)
-ScriptBox.TextColor3 = Color3.fromRGB(200, 200, 200)
-ScriptBox.Font = Enum.Font.Code
-ScriptBox.TextSize = 14
-ScriptBox.Text = "-- Enter your script here\nprint('DUNHILL Executor GACOR!')"
-ScriptBox.TextXAlignment = Enum.TextXAlignment.Left
-ScriptBox.TextYAlignment = Enum.TextYAlignment.Top
-ScriptBox.ClearTextOnFocus = false
-ScriptBox.MultiLine = true
-ScriptBox.Parent = Executor
-
-local BoxCorner = Instance.new("UICorner")
-BoxCorner.CornerRadius = UDim.new(0, 10)
-BoxCorner.Parent = ScriptBox
-
-local BoxPadding = Instance.new("UIPadding")
-BoxPadding.PaddingLeft = UDim.new(0, 10)
-BoxPadding.PaddingTop = UDim.new(0, 10)
-BoxPadding.Parent = ScriptBox
-
--- Execute Button
-local ExecuteBtn = Instance.new("TextButton")
-ExecuteBtn.Size = UDim2.new(0.48, 0, 0, 40)
-ExecuteBtn.Position = UDim2.new(0, 0, 1, -40)
-ExecuteBtn.BackgroundColor3 = Color3.fromRGB(138, 43, 226)
-ExecuteBtn.Text = "⚡ EXECUTE"
-ExecuteBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-ExecuteBtn.Font = Enum.Font.GothamBold
-ExecuteBtn.TextSize = 14
-ExecuteBtn.Parent = Executor
-
-local ExecCorner = Instance.new("UICorner")
-ExecCorner.CornerRadius = UDim.new(0, 10)
-ExecCorner.Parent = ExecuteBtn
-
-ExecuteBtn.MouseEnter:Connect(function()
-	smoothTween(ExecuteBtn, {BackgroundColor3 = Color3.fromRGB(158, 63, 246)}, 0.2)
-end)
-
-ExecuteBtn.MouseLeave:Connect(function()
-	smoothTween(ExecuteBtn, {BackgroundColor3 = Color3.fromRGB(138, 43, 226)}, 0.2)
-end)
-
-ExecuteBtn.MouseButton1Click:Connect(function()
-	local success, err = pcall(function()
-		loadstring(ScriptBox.Text)()
-	end)
-	if success then
-		ExecuteBtn.Text = "✓ EXECUTED!"
-		wait(1)
-		ExecuteBtn.Text = "⚡ EXECUTE"
-	else
-		ExecuteBtn.Text = "✗ ERROR"
-		wait(1)
-		ExecuteBtn.Text = "⚡ EXECUTE"
-	end
-end)
-
--- Clear Button
-local ClearBtn = Instance.new("TextButton")
-ClearBtn.Size = UDim2.new(0.48, 0, 0, 40)
-ClearBtn.Position = UDim2.new(0.52, 0, 1, -40)
-ClearBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
-ClearBtn.Text = "🗑️ CLEAR"
-ClearBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-ClearBtn.Font = Enum.Font.GothamBold
-ClearBtn.TextSize = 14
-ClearBtn.Parent = Executor
-
-local ClearCorner = Instance.new("UICorner")
-ClearCorner.CornerRadius = UDim.new(0, 10)
-ClearCorner.Parent = ClearBtn
-
-ClearBtn.MouseEnter:Connect(function()
-	smoothTween(ClearBtn, {BackgroundColor3 = Color3.fromRGB(60, 60, 70)}, 0.2)
-end)
-
-ClearBtn.MouseLeave:Connect(function()
-	smoothTween(ClearBtn, {BackgroundColor3 = Color3.fromRGB(40, 40, 50)}, 0.2)
-end)
-
-ClearBtn.MouseButton1Click:Connect(function()
-	ScriptBox.Text = ""
-end)
-
--- 📜 Scripts Page
-local Scripts = Instance.new("ScrollingFrame")
-Scripts.Name = "Scripts"
-Scripts.Size = UDim2.new(1, 0, 1, 0)
-Scripts.BackgroundTransparency = 1
-Scripts.BorderSizePixel = 0
-Scripts.ScrollBarThickness = 4
-Scripts.ScrollBarImageColor3 = Color3.fromRGB(138, 43, 226)
-Scripts.Visible = false
-Scripts.Parent = ContentFrame
-
-local ScriptsList = Instance.new("UIListLayout")
-ScriptsList.Padding = UDim.new(0, 10)
-ScriptsList.HorizontalAlignment = Enum.HorizontalAlignment.Center
-ScriptsList.Parent = Scripts
-
-local ScriptsPadding = Instance.new("UIPadding")
-ScriptsPadding.PaddingTop = UDim.new(0, 15)
-ScriptsPadding.PaddingLeft = UDim.new(0, 15)
-ScriptsPadding.PaddingRight = UDim.new(0, 15)
-ScriptsPadding.Parent = Scripts
-
--- Script Hub Title
-local ScriptsTitle = Instance.new("TextLabel")
-ScriptsTitle.Text = "📜 Script Hub"
-ScriptsTitle.Size = UDim2.new(1, -20, 0, 30)
-ScriptsTitle.BackgroundTransparency = 1
-ScriptsTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-ScriptsTitle.Font = Enum.Font.GothamBold
-ScriptsTitle.TextSize = 18
-ScriptsTitle.TextXAlignment = Enum.TextXAlignment.Left
-ScriptsTitle.Parent = Scripts
-
--- ⚙️ Settings Page
-local Settings = Instance.new("ScrollingFrame")
-Settings.Name = "Settings"
-Settings.Size = UDim2.new(1, 0, 1, 0)
-Settings.BackgroundTransparency = 1
-Settings.BorderSizePixel = 0
-Settings.ScrollBarThickness = 4
-Settings.ScrollBarImageColor3 = Color3.fromRGB(138, 43, 226)
-Settings.Visible = false
-Settings.Parent = ContentFrame
-
-local SettingsList = Instance.new("UIListLayout")
-SettingsList.Padding = UDim.new(0, 15)
-SettingsList.HorizontalAlignment = Enum.HorizontalAlignment.Center
-SettingsList.Parent = Settings
-
-local SettingsPadding = Instance.new("UIPadding")
-SettingsPadding.PaddingTop = UDim.new(0, 15)
-SettingsPadding.PaddingLeft = UDim.new(0, 15)
-SettingsPadding.PaddingRight = UDim.new(0, 15)
-SettingsPadding.Parent = Settings
-
-local SettingsTitle = Instance.new("TextLabel")
-SettingsTitle.Text = "⚙️ Settings"
-SettingsTitle.Size = UDim2.new(1, -20, 0, 30)
-SettingsTitle.BackgroundTransparency = 1
-SettingsTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-SettingsTitle.Font = Enum.Font.GothamBold
-SettingsTitle.TextSize = 18
-SettingsTitle.TextXAlignment = Enum.TextXAlignment.Left
-SettingsTitle.Parent = Settings
-
--- Function to create setting toggles
-local function CreateToggle(name, desc, defaultState)
-	local ToggleFrame = Instance.new("Frame")
-	ToggleFrame.Size = UDim2.new(1, -20, 0, 60)
-	ToggleFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-	ToggleFrame.BorderSizePixel = 0
-	ToggleFrame.Parent = Settings
-	
-	local ToggleCorner = Instance.new("UICorner")
-	ToggleCorner.CornerRadius = UDim.new(0, 10)
-	ToggleCorner.Parent = ToggleFrame
-	
-	local ToggleName = Instance.new("TextLabel")
-	ToggleName.Text = name
-	ToggleName.Size = UDim2.new(1, -100, 0, 25)
-	ToggleName.Position = UDim2.new(0, 15, 0, 8)
-	ToggleName.BackgroundTransparency = 1
-	ToggleName.TextColor3 = Color3.fromRGB(255, 255, 255)
-	ToggleName.Font = Enum.Font.GothamSemibold
-	ToggleName.TextSize = 14
-	ToggleName.TextXAlignment = Enum.TextXAlignment.Left
-	ToggleName.Parent = ToggleFrame
-	
-	local ToggleDesc = Instance.new("TextLabel")
-	ToggleDesc.Text = desc
-	ToggleDesc.Size = UDim2.new(1, -100, 0, 20)
-	ToggleDesc.Position = UDim2.new(0, 15, 0, 32)
-	ToggleDesc.BackgroundTransparency = 1
-	ToggleDesc.TextColor3 = Color3.fromRGB(120, 120, 130)
-	ToggleDesc.Font = Enum.Font.Gotham
-	ToggleDesc.TextSize = 11
-	ToggleDesc.TextXAlignment = Enum.TextXAlignment.Left
-	ToggleDesc.Parent = ToggleFrame
-	
-	local ToggleButton = Instance.new("TextButton")
-	ToggleButton.Size = UDim2.new(0, 50, 0, 26)
-	ToggleButton.Position = UDim2.new(1, -65, 0.5, -13)
-	ToggleButton.BackgroundColor3 = defaultState and Color3.fromRGB(138, 43, 226) or Color3.fromRGB(50, 50, 60)
-	ToggleButton.Text = ""
-	ToggleButton.Parent = ToggleFrame
-	
-	local ToggleBtnCorner = Instance.new("UICorner")
-	ToggleBtnCorner.CornerRadius = UDim.new(1, 0)
-	ToggleBtnCorner.Parent = ToggleButton
-	
-	local ToggleCircle = Instance.new("Frame")
-	ToggleCircle.Size = UDim2.new(0, 20, 0, 20)
-	ToggleCircle.Position = defaultState and UDim2.new(1, -23, 0.5, -10) or UDim2.new(0, 3, 0.5, -10)
-	ToggleCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	ToggleCircle.Parent = ToggleButton
-	
-	local CircleCorner = Instance.new("UICorner")
-	CircleCorner.CornerRadius = UDim.new(1, 0)
-	CircleCorner.Parent = ToggleCircle
-	
-	local isEnabled = defaultState
-	ToggleButton.MouseButton1Click:Connect(function()
-		isEnabled = not isEnabled
-		if isEnabled then
-			smoothTween(ToggleButton, {BackgroundColor3 = Color3.fromRGB(138, 43, 226)}, 0.3)
-			smoothTween(ToggleCircle, {Position = UDim2.new(1, -23, 0.5, -10)}, 0.3)
-		else
-			smoothTween(ToggleButton, {BackgroundColor3 = Color3.fromRGB(50, 50, 60)}, 0.3)
-			smoothTween(ToggleCircle, {Position = UDim2.new(0, 3, 0.5, -10)}, 0.3)
-		end
-	end)
-	
-	return ToggleFrame
+local function CreateButton(parent, text, color, callback)
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(1, 0, 0, 40)
+    btn.BackgroundColor3 = color or Theme.Accent
+    btn.Text = text
+    btn.TextColor3 = Theme.Text
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 14
+    btn.BorderSizePixel = 0
+    btn.AutoButtonColor = false
+    btn.Parent = parent
+    
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 10)
+    corner.Parent = btn
+    
+    btn.MouseEnter:Connect(function()
+        TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Theme.AccentHover}):Play()
+    end)
+    btn.MouseLeave:Connect(function()
+        TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = color or Theme.Accent}):Play()
+    end)
+    
+    if callback then
+        btn.MouseButton1Click:Connect(callback)
+    end
+    
+    return btn
 end
 
--- Create Settings
-CreateToggle("Auto Execute", "Automatically execute scripts on join", false)
-CreateToggle("Save Tabs", "Remember last opened tab", true)
-CreateToggle("Top Most", "Keep UI above all windows", false)
-CreateToggle("Notifications", "Show execution notifications", true)
+-- 🏠 HOME PAGE
+local welcomeSection = CreateSection(HomePage, "Welcome Back!")
+local welcomeText = Instance.new("TextLabel")
+welcomeText.Text = "Premium executor with modern interface\nExecute scripts safely and efficiently"
+welcomeText.Size = UDim2.new(1, 0, 0, 50)
+welcomeText.BackgroundTransparency = 1
+welcomeText.TextColor3 = Theme.TextDim
+welcomeText.Font = Enum.Font.Gotham
+welcomeText.TextSize = 13
+welcomeText.TextWrapped = true
+welcomeText.TextXAlignment = Enum.TextXAlignment.Left
+welcomeText.TextYAlignment = Enum.TextYAlignment.Top
+welcomeText.Parent = welcomeSection
 
--- Credits Section
-local CreditsFrame = Instance.new("Frame")
-CreditsFrame.Size = UDim2.new(1, -20, 0, 100)
-CreditsFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-CreditsFrame.BorderSizePixel = 0
-CreditsFrame.Parent = Settings
+local statsSection = CreateSection(HomePage, "Quick Stats")
+local statsGrid = Instance.new("Frame")
+statsGrid.Size = UDim2.new(1, 0, 0, 70)
+statsGrid.BackgroundTransparency = 1
+statsGrid.Parent = statsSection
 
-local CreditsCorner = Instance.new("UICorner")
-CreditsCorner.CornerRadius = UDim.new(0, 10)
-CreditsCorner.Parent = CreditsFrame
+local gridLayout = Instance.new("UIGridLayout")
+gridLayout.CellSize = UDim2.new(0.31, 0, 1, 0)
+gridLayout.CellPadding = UDim2.new(0.02, 0, 0, 0)
+gridLayout.Parent = statsGrid
 
-local CreditsTitle = Instance.new("TextLabel")
-CreditsTitle.Text = "💎 Credits"
-CreditsTitle.Size = UDim2.new(1, -20, 0, 25)
-CreditsTitle.Position = UDim2.new(0, 15, 0, 10)
-CreditsTitle.BackgroundTransparency = 1
-CreditsTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-CreditsTitle.Font = Enum.Font.GothamBold
-CreditsTitle.TextSize = 14
-CreditsTitle.TextXAlignment = Enum.TextXAlignment.Left
-CreditsTitle.Parent = CreditsFrame
-
-local CreditsText = Instance.new("TextLabel")
-CreditsText.Text = "Developed by: RezxyStore x ChatGPT\nUI Enhanced by: Claude AI (Ultra Gacor Edition)\nVersion: 2.0 Premium"
-CreditsText.Size = UDim2.new(1, -30, 0, 60)
-CreditsText.Position = UDim2.new(0, 15, 0, 35)
-CreditsText.BackgroundTransparency = 1
-CreditsText.TextColor3 = Color3.fromRGB(150, 150, 160)
-CreditsText.Font = Enum.Font.Gotham
-CreditsText.TextSize = 11
-CreditsText.TextXAlignment = Enum.TextXAlignment.Left
-CreditsText.TextYAlignment = Enum.TextYAlignment.Top
-CreditsText.Parent = CreditsFrame
-
--- Initialize: Show Home tab as active
-wait(0.1)
-local homeTab = TabHolder:FindFirstChild("Home")
-if homeTab then
-	homeTab.BackgroundColor3 = Color3.fromRGB(138, 43, 226)
-	local icon = homeTab:FindFirstChild("TextLabel")
-	if icon then
-		icon.TextColor3 = Color3.fromRGB(255, 255, 255)
-	end
-	for _, child in pairs(homeTab:GetChildren()) do
-		if child:IsA("TextLabel") and child ~= icon then
-			child.TextColor3 = Color3.fromRGB(255, 255, 255)
-		end
-	end
-	currentTab = homeTab
+local function CreateStat(text, value, color)
+    local stat = Instance.new("Frame")
+    stat.BackgroundColor3 = Color3.fromRGB(20, 20, 28)
+    stat.BorderSizePixel = 0
+    stat.Parent = statsGrid
+    
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 10)
+    corner.Parent = stat
+    
+    local valueLabel = Instance.new("TextLabel")
+    valueLabel.Text = value
+    valueLabel.Size = UDim2.new(1, 0, 0.5, 0)
+    valueLabel.BackgroundTransparency = 1
+    valueLabel.TextColor3 = color
+    valueLabel.Font = Enum.Font.GothamBold
+    valueLabel.TextSize = 20
+    valueLabel.Parent = stat
+    
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Text = text
+    textLabel.Size = UDim2.new(1, 0, 0.5, 0)
+    textLabel.Position = UDim2.new(0, 0, 0.5, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextColor3 = Theme.TextDim
+    textLabel.Font = Enum.Font.Gotham
+    textLabel.TextSize = 11
+    textLabel.Parent = stat
 end
 
--- 🎉 Notification System
-local function ShowNotification(title, message, duration)
-	local NotifFrame = Instance.new("Frame")
-	NotifFrame.Size = UDim2.new(0, 300, 0, 0)
-	NotifFrame.Position = UDim2.new(1, -320, 1, -20)
-	NotifFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-	NotifFrame.BorderSizePixel = 0
-	NotifFrame.Parent = ScreenGui
-	
-	local NotifCorner = Instance.new("UICorner")
-	NotifCorner.CornerRadius = UDim.new(0, 10)
-	NotifCorner.Parent = NotifFrame
-	
-	local NotifGradient = Instance.new("UIGradient")
-	NotifGradient.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, Color3.fromRGB(138, 43, 226)),
-		ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 30))
-	})
-	NotifGradient.Rotation = 90
-	NotifGradient.Parent = NotifFrame
-	
-	local NotifTitle = Instance.new("TextLabel")
-	NotifTitle.Text = "⚡ " .. title
-	NotifTitle.Size = UDim2.new(1, -20, 0, 25)
-	NotifTitle.Position = UDim2.new(0, 10, 0, 8)
-	NotifTitle.BackgroundTransparency = 1
-	NotifTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-	NotifTitle.Font = Enum.Font.GothamBold
-	NotifTitle.TextSize = 13
-	NotifTitle.TextXAlignment = Enum.TextXAlignment.Left
-	NotifTitle.Parent = NotifFrame
-	
-	local NotifMessage = Instance.new("TextLabel")
-	NotifMessage.Text = message
-	NotifMessage.Size = UDim2.new(1, -20, 0, 40)
-	NotifMessage.Position = UDim2.new(0, 10, 0, 30)
-	NotifMessage.BackgroundTransparency = 1
-	NotifMessage.TextColor3 = Color3.fromRGB(180, 180, 190)
-	NotifMessage.Font = Enum.Font.Gotham
-	NotifMessage.TextSize = 11
-	NotifMessage.TextXAlignment = Enum.TextXAlignment.Left
-	NotifMessage.TextYAlignment = Enum.TextYAlignment.Top
-	NotifMessage.TextWrapped = true
-	NotifMessage.Parent = NotifFrame
-	
-	-- Animate in
-	smoothTween(NotifFrame, {Size = UDim2.new(0, 300, 0, 80)}, 0.4)
-	smoothTween(NotifFrame, {Position = UDim2.new(1, -320, 1, -100)}, 0.4)
-	
-	-- Animate out
-	wait(duration or 3)
-	smoothTween(NotifFrame, {Position = UDim2.new(1, -320, 1, -20)}, 0.3)
-	smoothTween(NotifFrame, {Size = UDim2.new(0, 300, 0, 0)}, 0.3)
-	wait(0.3)
-	NotifFrame:Destroy()
+CreateStat("SCRIPTS", "150+", Theme.Success)
+CreateStat("GAMES", "50+", Theme.Warning)
+CreateStat("USERS", "10K+", Theme.Accent)
+
+-- ⚡ EXECUTOR PAGE
+local editorSection = CreateSection(ExecutorPage, "Script Editor")
+local scriptBox = Instance.new("TextBox")
+scriptBox.Size = UDim2.new(1, 0, 0, 200)
+scriptBox.BackgroundColor3 = Color3.fromRGB(10, 10, 15)
+scriptBox.Text = "-- Enter your script here\nprint('Hello from Premium Executor!')"
+scriptBox.TextColor3 = Theme.Text
+scriptBox.Font = Enum.Font.Code
+scriptBox.TextSize = 13
+scriptBox.TextXAlignment = Enum.TextXAlignment.Left
+scriptBox.TextYAlignment = Enum.TextYAlignment.Top
+scriptBox.MultiLine = true
+scriptBox.ClearTextOnFocus = false
+scriptBox.BorderSizePixel = 0
+scriptBox.Parent = editorSection
+
+local boxCorner = Instance.new("UICorner")
+boxCorner.CornerRadius = UDim.new(0, 10)
+boxCorner.Parent = scriptBox
+
+local boxPadding = Instance.new("UIPadding")
+boxPadding.PaddingTop = UDim.new(0, 10)
+boxPadding.PaddingLeft = UDim.new(0, 10)
+boxPadding.PaddingRight = UDim.new(0, 10)
+boxPadding.PaddingBottom = UDim.new(0, 10)
+boxPadding.Parent = scriptBox
+
+CreateButton(editorSection, "▶ Execute Script", Theme.Success, function()
+    local success, err = pcall(function()
+        loadstring(scriptBox.Text)()
+    end)
+    if not success then
+        warn("Execution error:", err)
+    end
+end)
+
+CreateButton(editorSection, "🗑 Clear", Theme.Danger, function()
+    scriptBox.Text = ""
+end)
+
+-- 📜 SCRIPTS PAGE
+local scriptHubSection = CreateSection(ScriptsPage, "Script Hub")
+local scripts = {
+    {name = "Infinite Yield", desc = "Admin commands"},
+    {name = "Dark Dex", desc = "Explorer tool"},
+    {name = "Universal ESP", desc = "See all players"},
+    {name = "Fly Script", desc = "Fly anywhere"},
+    {name = "Speed Hack", desc = "Move faster"},
+}
+
+for _, script in ipairs(scripts) do
+    local scriptItem = Instance.new("Frame")
+    scriptItem.Size = UDim2.new(1, 0, 0, 60)
+    scriptItem.BackgroundColor3 = Color3.fromRGB(20, 20, 28)
+    scriptItem.BorderSizePixel = 0
+    scriptItem.Parent = scriptHubSection
+    
+    local itemCorner = Instance.new("UICorner")
+    itemCorner.CornerRadius = UDim.new(0, 10)
+    itemCorner.Parent = scriptItem
+    
+    local nameLabel = Instance.new("TextLabel")
+    nameLabel.Text = script.name
+    nameLabel.Size = UDim2.new(0.6, 0, 0.5, 0)
+    nameLabel.Position = UDim2.new(0, 15, 0, 5)
+    nameLabel.BackgroundTransparency = 1
+    nameLabel.TextColor3 = Theme.Text
+    nameLabel.Font = Enum.Font.GothamBold
+    nameLabel.TextSize = 14
+    nameLabel.TextXAlignment = Enum.TextXAlignment.Left
+    nameLabel.Parent = scriptItem
+    
+    local descLabel = Instance.new("TextLabel")
+    descLabel.Text = script.desc
+    descLabel.Size = UDim2.new(0.6, 0, 0.4, 0)
+    descLabel.Position = UDim2.new(0, 15, 0.5, 0)
+    descLabel.BackgroundTransparency = 1
+    descLabel.TextColor3 = Theme.TextDim
+    descLabel.Font = Enum.Font.Gotham
+    descLabel.TextSize = 11
+    descLabel.TextXAlignment = Enum.TextXAlignment.Left
+    descLabel.Parent = scriptItem
+    
+    local execBtn = Instance.new("TextButton")
+    execBtn.Text = "Execute"
+    execBtn.Size = UDim2.new(0, 80, 0, 35)
+    execBtn.Position = UDim2.new(1, -95, 0.5, -17.5)
+    execBtn.BackgroundColor3 = Theme.Accent
+    execBtn.TextColor3 = Theme.Text
+    execBtn.Font = Enum.Font.GothamBold
+    execBtn.TextSize = 12
+    execBtn.BorderSizePixel = 0
+    execBtn.Parent = scriptItem
+    
+    local btnCorner = Instance.new("UICorner")
+    btnCorner.CornerRadius = UDim.new(0, 8)
+    btnCorner.Parent = execBtn
 end
 
--- Show welcome notification
-wait(0.6)
-ShowNotification("Welcome!", "DUNHILL Executor Ultra Gacor Edition loaded successfully! 🔥", 4)
+-- 🎮 GAMES PAGE
+CreateSection(GamesPage, "Supported Games")
+local gamesText = Instance.new("TextLabel")
+gamesText.Text = "Coming soon: Game-specific scripts\nSupporting 50+ popular Roblox games"
+gamesText.Size = UDim2.new(1, 0, 0, 60)
+gamesText.BackgroundTransparency = 1
+gamesText.TextColor3 = Theme.TextDim
+gamesText.Font = Enum.Font.Gotham
+gamesText.TextSize = 13
+gamesText.TextWrapped = true
+gamesText.Parent = GamesPage
 
-print("🔥 DUNHILL EXECUTOR ULTRA GACOR EDITION LOADED! 🔥")
-print("✨ Version 2.0 Premium - Enhanced by Claude AI")
-print("⚡ All features ready to use!")
+-- ⚙️ SETTINGS PAGE
+local settingsSection = CreateSection(SettingsPage, "Configuration")
+CreateButton(settingsSection, "Save Config", Theme.Success)
+CreateButton(settingsSection, "Load Config", Theme.Warning)
+CreateButton(settingsSection, "Reset Settings", Theme.Danger)
+
+-- 🎬 Activate Home by default
+Sidebar:FindFirstChild("HomeBtn").MouseButton1Click:Connect(function() end)
+Sidebar:FindFirstChild("HomeBtn").MouseButton1Click:Fire()
+
+print("✅ Premium Executor UI loaded successfully!")
