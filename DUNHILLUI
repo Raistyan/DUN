@@ -1,112 +1,249 @@
--- 🖤 DUNHILL UI | Modern Executor GUI (By ChatGPT x RezxyStore)
+-- 🔥 DUNHILL UI | ULTRA PREMIUM EXECUTOR GUI
 -- Compatible with Delta / Xeno / Arceus X
--- Clean, draggable, dark-themed design
+-- Super Gacor Edition with Animations & Gradients
 
+local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local playerGui = player:FindFirstChildOfClass("PlayerGui") or player:WaitForChild("PlayerGui")
 
+-- 🎨 Animation Functions
+local function smoothTween(object, properties, duration)
+	local tween = TweenService:Create(
+		object,
+		TweenInfo.new(duration or 0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out),
+		properties
+	)
+	tween:Play()
+	return tween
+end
+
 -- 🧱 GUI Root
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "DUNHILL_UI"
+ScreenGui.Name = "DUNHILL_UI_PREMIUM"
 ScreenGui.ResetOnSpawn = false
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = playerGui
 
--- 🪟 Main Window
+-- 🪟 Main Window (Lebih Besar & Modern)
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
-MainFrame.Size = UDim2.new(0, 450, 0, 300)
-MainFrame.Position = UDim2.new(0.5, -225, 0.5, -150)
-MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+MainFrame.Size = UDim2.new(0, 600, 0, 400)
+MainFrame.Position = UDim2.new(0.5, -300, 0.5, -200)
+MainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 15)
 MainFrame.BorderSizePixel = 0
 MainFrame.Active = true
 MainFrame.Draggable = true
+MainFrame.ClipsDescendants = true
 MainFrame.Parent = ScreenGui
 
--- 🔳 UI Corners & Shadow
+-- ✨ Intro Animation
+MainFrame.Size = UDim2.new(0, 0, 0, 0)
+smoothTween(MainFrame, {Size = UDim2.new(0, 600, 0, 400)}, 0.5)
+
+-- 🔳 UI Corners
 local Corner = Instance.new("UICorner")
-Corner.CornerRadius = UDim.new(0, 12)
+Corner.CornerRadius = UDim.new(0, 16)
 Corner.Parent = MainFrame
 
+-- 🌈 Gradient Background
+local Gradient = Instance.new("UIGradient")
+Gradient.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(20, 15, 30)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(10, 10, 15))
+})
+Gradient.Rotation = 45
+Gradient.Parent = MainFrame
+
+-- 💎 Accent Border
+local AccentBorder = Instance.new("Frame")
+AccentBorder.Name = "AccentBorder"
+AccentBorder.Size = UDim2.new(1, 0, 0, 2)
+AccentBorder.Position = UDim2.new(0, 0, 0, 50)
+AccentBorder.BackgroundColor3 = Color3.fromRGB(138, 43, 226)
+AccentBorder.BorderSizePixel = 0
+AccentBorder.Parent = MainFrame
+
+local BorderGradient = Instance.new("UIGradient")
+BorderGradient.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(138, 43, 226)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 20, 147)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(138, 43, 226))
+})
+BorderGradient.Parent = AccentBorder
+
+-- 🔥 Animated Gradient Border
+spawn(function()
+	while AccentBorder and AccentBorder.Parent do
+		smoothTween(BorderGradient, {Offset = Vector2.new(1, 0)}, 2)
+		wait(2)
+		BorderGradient.Offset = Vector2.new(-1, 0)
+	end
+end)
+
+-- 🔳 Shadow Effect
 local Shadow = Instance.new("ImageLabel")
 Shadow.Name = "Shadow"
 Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
-Shadow.Position = UDim2.new(0.5, 0, 0.5, 6)
-Shadow.Size = UDim2.new(1, 40, 1, 40)
+Shadow.Position = UDim2.new(0.5, 0, 0.5, 8)
+Shadow.Size = UDim2.new(1, 50, 1, 50)
 Shadow.BackgroundTransparency = 1
 Shadow.Image = "rbxassetid://1316045217"
-Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-Shadow.ImageTransparency = 0.8
+Shadow.ImageColor3 = Color3.fromRGB(138, 43, 226)
+Shadow.ImageTransparency = 0.7
 Shadow.ScaleType = Enum.ScaleType.Slice
 Shadow.SliceCenter = Rect.new(10, 10, 118, 118)
+Shadow.ZIndex = 0
 Shadow.Parent = MainFrame
 
--- 🧭 Top Bar
+-- 🧭 Top Bar dengan Glass Effect
 local TopBar = Instance.new("Frame")
 TopBar.Name = "TopBar"
-TopBar.Size = UDim2.new(1, 0, 0, 35)
-TopBar.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+TopBar.Size = UDim2.new(1, 0, 0, 50)
+TopBar.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+TopBar.BackgroundTransparency = 0.3
 TopBar.BorderSizePixel = 0
 TopBar.Parent = MainFrame
 
 local TopCorner = Instance.new("UICorner")
-TopCorner.CornerRadius = UDim.new(0, 12)
+TopCorner.CornerRadius = UDim.new(0, 16)
 TopCorner.Parent = TopBar
 
--- 🧠 Title
+local TopGradient = Instance.new("UIGradient")
+TopGradient.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(30, 25, 40)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 30))
+})
+TopGradient.Rotation = 90
+TopGradient.Parent = TopBar
+
+-- 🔥 Logo Icon
+local LogoIcon = Instance.new("TextLabel")
+LogoIcon.Name = "Logo"
+LogoIcon.Text = "⚡"
+LogoIcon.TextColor3 = Color3.fromRGB(255, 215, 0)
+LogoIcon.Font = Enum.Font.GothamBold
+LogoIcon.TextSize = 24
+LogoIcon.BackgroundTransparency = 1
+LogoIcon.Position = UDim2.new(0, 15, 0, 10)
+LogoIcon.Size = UDim2.new(0, 30, 0, 30)
+LogoIcon.Parent = TopBar
+
+-- 🧠 Title dengan Glow Effect
 local Title = Instance.new("TextLabel")
 Title.Name = "Title"
 Title.Text = "DUNHILL EXECUTOR"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.Font = Enum.Font.GothamBold
-Title.TextSize = 16
+Title.TextSize = 18
 Title.BackgroundTransparency = 1
-Title.Position = UDim2.new(0, 12, 0, 5)
-Title.Size = UDim2.new(0.6, 0, 1, -10)
+Title.Position = UDim2.new(0, 55, 0, 8)
+Title.Size = UDim2.new(0.5, 0, 1, -16)
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.Parent = TopBar
 
--- ❌ Close Button
+local TitleStroke = Instance.new("UIStroke")
+TitleStroke.Color = Color3.fromRGB(138, 43, 226)
+TitleStroke.Thickness = 1
+TitleStroke.Transparency = 0.5
+TitleStroke.Parent = Title
+
+-- 💫 Version Badge
+local VersionBadge = Instance.new("TextLabel")
+VersionBadge.Text = "ULTRA GACOR"
+VersionBadge.Size = UDim2.new(0, 90, 0, 20)
+VersionBadge.Position = UDim2.new(0, 55, 0, 28)
+VersionBadge.BackgroundColor3 = Color3.fromRGB(138, 43, 226)
+VersionBadge.TextColor3 = Color3.fromRGB(255, 255, 255)
+VersionBadge.Font = Enum.Font.GothamBold
+VersionBadge.TextSize = 10
+VersionBadge.Parent = TopBar
+
+local BadgeCorner = Instance.new("UICorner")
+BadgeCorner.CornerRadius = UDim.new(0, 5)
+BadgeCorner.Parent = VersionBadge
+
+-- ➖ Minimize Button
+local MinimizeButton = Instance.new("TextButton")
+MinimizeButton.Name = "Minimize"
+MinimizeButton.Size = UDim2.new(0, 35, 0, 35)
+MinimizeButton.Position = UDim2.new(1, -80, 0, 7)
+MinimizeButton.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
+MinimizeButton.Text = "─"
+MinimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+MinimizeButton.Font = Enum.Font.GothamBold
+MinimizeButton.TextSize = 14
+MinimizeButton.Parent = TopBar
+
+local MinCorner = Instance.new("UICorner")
+MinCorner.CornerRadius = UDim.new(0, 10)
+MinCorner.Parent = MinimizeButton
+
+MinimizeButton.MouseEnter:Connect(function()
+	smoothTween(MinimizeButton, {BackgroundColor3 = Color3.fromRGB(60, 60, 70)}, 0.2)
+end)
+
+MinimizeButton.MouseLeave:Connect(function()
+	smoothTween(MinimizeButton, {BackgroundColor3 = Color3.fromRGB(40, 40, 50)}, 0.2)
+end)
+
+-- ❌ Close Button dengan Hover Effect
 local CloseButton = Instance.new("TextButton")
 CloseButton.Name = "Close"
-CloseButton.Size = UDim2.new(0, 30, 0, 30)
-CloseButton.Position = UDim2.new(1, -35, 0, 2)
-CloseButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+CloseButton.Size = UDim2.new(0, 35, 0, 35)
+CloseButton.Position = UDim2.new(1, -40, 0, 7)
+CloseButton.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
 CloseButton.Text = "✕"
 CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 CloseButton.Font = Enum.Font.GothamBold
-CloseButton.TextSize = 14
+CloseButton.TextSize = 16
 CloseButton.Parent = TopBar
 
 local CloseCorner = Instance.new("UICorner")
-CloseCorner.CornerRadius = UDim.new(0, 8)
+CloseCorner.CornerRadius = UDim.new(0, 10)
 CloseCorner.Parent = CloseButton
 
+CloseButton.MouseEnter:Connect(function()
+	smoothTween(CloseButton, {BackgroundColor3 = Color3.fromRGB(220, 53, 69)}, 0.2)
+	smoothTween(CloseButton, {Rotation = 90}, 0.3)
+end)
+
+CloseButton.MouseLeave:Connect(function()
+	smoothTween(CloseButton, {BackgroundColor3 = Color3.fromRGB(40, 40, 50)}, 0.2)
+	smoothTween(CloseButton, {Rotation = 0}, 0.3)
+end)
+
 CloseButton.MouseButton1Click:Connect(function()
+	smoothTween(MainFrame, {Size = UDim2.new(0, 0, 0, 0)}, 0.4)
+	wait(0.4)
 	ScreenGui:Destroy()
 end)
 
--- 🧩 Tabs Section
+-- 🧩 Tabs Section dengan Gradient
 local TabHolder = Instance.new("Frame")
 TabHolder.Name = "TabHolder"
-TabHolder.Size = UDim2.new(0, 120, 1, -35)
-TabHolder.Position = UDim2.new(0, 0, 0, 35)
-TabHolder.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+TabHolder.Size = UDim2.new(0, 140, 1, -52)
+TabHolder.Position = UDim2.new(0, 0, 0, 52)
+TabHolder.BackgroundColor3 = Color3.fromRGB(15, 15, 22)
 TabHolder.BorderSizePixel = 0
 TabHolder.Parent = MainFrame
 
 local TabsLayout = Instance.new("UIListLayout")
-TabsLayout.Padding = UDim.new(0, 8)
+TabsLayout.Padding = UDim.new(0, 10)
 TabsLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 TabsLayout.SortOrder = Enum.SortOrder.LayoutOrder
 TabsLayout.Parent = TabHolder
 
+local TabPadding = Instance.new("UIPadding")
+TabPadding.PaddingTop = UDim.new(0, 15)
+TabPadding.Parent = TabHolder
+
 -- 🧭 Content Section
 local ContentFrame = Instance.new("Frame")
 ContentFrame.Name = "Content"
-ContentFrame.Size = UDim2.new(1, -120, 1, -35)
-ContentFrame.Position = UDim2.new(0, 120, 0, 35)
-ContentFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+ContentFrame.Size = UDim2.new(1, -142, 1, -54)
+ContentFrame.Position = UDim2.new(0, 141, 0, 53)
+ContentFrame.BackgroundColor3 = Color3.fromRGB(12, 12, 18)
 ContentFrame.BorderSizePixel = 0
 ContentFrame.Parent = MainFrame
 
@@ -114,59 +251,344 @@ local ContentCorner = Instance.new("UICorner")
 ContentCorner.CornerRadius = UDim.new(0, 12)
 ContentCorner.Parent = ContentFrame
 
--- 🌑 Example Tabs
-local function CreateTab(name)
+-- 🌟 Tab Creation Function dengan Icon
+local currentTab = nil
+local function CreateTab(name, icon)
 	local Tab = Instance.new("TextButton")
 	Tab.Name = name
-	Tab.Text = name
-	Tab.Size = UDim2.new(1, -10, 0, 30)
-	Tab.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-	Tab.TextColor3 = Color3.fromRGB(255, 255, 255)
-	Tab.Font = Enum.Font.Gotham
-	Tab.TextSize = 14
+	Tab.Text = ""
+	Tab.Size = UDim2.new(1, -20, 0, 45)
+	Tab.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
+	Tab.BorderSizePixel = 0
+	Tab.AutoButtonColor = false
 	Tab.Parent = TabHolder
+	
 	local TabCorner = Instance.new("UICorner")
-	TabCorner.CornerRadius = UDim.new(0, 6)
+	TabCorner.CornerRadius = UDim.new(0, 10)
 	TabCorner.Parent = Tab
 
+	local TabIcon = Instance.new("TextLabel")
+	TabIcon.Text = icon
+	TabIcon.Size = UDim2.new(0, 25, 0, 25)
+	TabIcon.Position = UDim2.new(0, 10, 0.5, -12)
+	TabIcon.BackgroundTransparency = 1
+	TabIcon.TextColor3 = Color3.fromRGB(180, 180, 190)
+	TabIcon.Font = Enum.Font.GothamBold
+	TabIcon.TextSize = 18
+	TabIcon.Parent = Tab
+
+	local TabLabel = Instance.new("TextLabel")
+	TabLabel.Text = name
+	TabLabel.Size = UDim2.new(1, -45, 1, 0)
+	TabLabel.Position = UDim2.new(0, 40, 0, 0)
+	TabLabel.BackgroundTransparency = 1
+	TabLabel.TextColor3 = Color3.fromRGB(180, 180, 190)
+	TabLabel.Font = Enum.Font.GothamSemibold
+	TabLabel.TextSize = 14
+	TabLabel.TextXAlignment = Enum.TextXAlignment.Left
+	TabLabel.Parent = Tab
+
+	-- Hover Effects
+	Tab.MouseEnter:Connect(function()
+		if currentTab ~= Tab then
+			smoothTween(Tab, {BackgroundColor3 = Color3.fromRGB(35, 35, 45)}, 0.2)
+			smoothTween(Tab, {Size = UDim2.new(1, -15, 0, 45)}, 0.2)
+		end
+	end)
+
+	Tab.MouseLeave:Connect(function()
+		if currentTab ~= Tab then
+			smoothTween(Tab, {BackgroundColor3 = Color3.fromRGB(25, 25, 35)}, 0.2)
+			smoothTween(Tab, {Size = UDim2.new(1, -20, 0, 45)}, 0.2)
+		end
+	end)
+
 	Tab.MouseButton1Click:Connect(function()
+		-- Reset all tabs
+		for _, button in pairs(TabHolder:GetChildren()) do
+			if button:IsA("TextButton") then
+				smoothTween(button, {BackgroundColor3 = Color3.fromRGB(25, 25, 35)}, 0.3)
+				smoothTween(button, {Size = UDim2.new(1, -20, 0, 45)}, 0.2)
+				local icon = button:FindFirstChild("TextLabel")
+				local label = button:FindFirstChild("TextLabel", true)
+				if icon then smoothTween(icon, {TextColor3 = Color3.fromRGB(180, 180, 190)}, 0.3) end
+			end
+		end
+		
+		-- Activate clicked tab
+		currentTab = Tab
+		smoothTween(Tab, {BackgroundColor3 = Color3.fromRGB(138, 43, 226)}, 0.3)
+		smoothTween(TabIcon, {TextColor3 = Color3.fromRGB(255, 255, 255)}, 0.3)
+		smoothTween(TabLabel, {TextColor3 = Color3.fromRGB(255, 255, 255)}, 0.3)
+		
+		-- Switch pages
 		for _, frame in pairs(ContentFrame:GetChildren()) do
-			if frame:IsA("Frame") then
+			if frame:IsA("Frame") or frame:IsA("ScrollingFrame") then
 				frame.Visible = false
 			end
 		end
 		local page = ContentFrame:FindFirstChild(name)
 		if page then
 			page.Visible = true
+			page.GroupTransparency = 1
+			smoothTween(page, {GroupTransparency = 0}, 0.4)
 		end
 	end)
+	
+	return Tab
 end
 
--- 🪄 Create Tabs
-CreateTab("Home")
-CreateTab("Scripts")
-CreateTab("Settings")
+-- 🪄 Create Tabs dengan Icons
+CreateTab("Home", "🏠")
+CreateTab("Executor", "⚡")
+CreateTab("Scripts", "📜")
+CreateTab("Settings", "⚙️")
 
--- 📃 Home Page
-local Home = Instance.new("Frame")
+-- 📃 Home Page dengan Welcome Screen
+local Home = Instance.new("ScrollingFrame")
 Home.Name = "Home"
 Home.Size = UDim2.new(1, 0, 1, 0)
 Home.BackgroundTransparency = 1
+Home.BorderSizePixel = 0
+Home.ScrollBarThickness = 4
+Home.ScrollBarImageColor3 = Color3.fromRGB(138, 43, 226)
 Home.Parent = ContentFrame
 
-local HomeText = Instance.new("TextLabel")
-HomeText.Text = "Welcome to DUNHILL Executor UI"
-HomeText.Size = UDim2.new(1, 0, 0, 30)
-HomeText.Position = UDim2.new(0, 0, 0, 30)
-HomeText.BackgroundTransparency = 1
-HomeText.TextColor3 = Color3.fromRGB(200, 200, 200)
-HomeText.Font = Enum.Font.Gotham
-HomeText.TextSize = 16
-HomeText.Parent = Home
+local HomePadding = Instance.new("UIPadding")
+HomePadding.PaddingLeft = UDim.new(0, 20)
+HomePadding.PaddingRight = UDim.new(0, 20)
+HomePadding.PaddingTop = UDim.new(0, 20)
+HomePadding.Parent = Home
 
--- Hide all pages except Home
-for _, f in pairs(ContentFrame:GetChildren()) do
-	if f:IsA("Frame") and f.Name ~= "Home" then
-		f.Visible = false
-	end
+local WelcomeTitle = Instance.new("TextLabel")
+WelcomeTitle.Text = "🔥 Welcome to DUNHILL"
+WelcomeTitle.Size = UDim2.new(1, 0, 0, 40)
+WelcomeTitle.BackgroundTransparency = 1
+WelcomeTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+WelcomeTitle.Font = Enum.Font.GothamBold
+WelcomeTitle.TextSize = 24
+WelcomeTitle.TextXAlignment = Enum.TextXAlignment.Left
+WelcomeTitle.Parent = Home
+
+local WelcomeDesc = Instance.new("TextLabel")
+WelcomeDesc.Text = "Ultra Premium Executor - Gacor Edition"
+WelcomeDesc.Size = UDim2.new(1, 0, 0, 25)
+WelcomeDesc.Position = UDim2.new(0, 0, 0, 45)
+WelcomeDesc.BackgroundTransparency = 1
+WelcomeDesc.TextColor3 = Color3.fromRGB(150, 150, 160)
+WelcomeDesc.Font = Enum.Font.Gotham
+WelcomeDesc.TextSize = 14
+WelcomeDesc.TextXAlignment = Enum.TextXAlignment.Left
+WelcomeDesc.Parent = Home
+
+-- 📊 Stats Cards
+local function CreateStatCard(title, value, icon, yPos)
+	local Card = Instance.new("Frame")
+	Card.Size = UDim2.new(0.48, 0, 0, 80)
+	Card.Position = UDim2.new((yPos % 2) * 0.52, 0, 0, 90 + math.floor(yPos / 2) * 90)
+	Card.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+	Card.BorderSizePixel = 0
+	Card.Parent = Home
+	
+	local CardCorner = Instance.new("UICorner")
+	CardCorner.CornerRadius = UDim.new(0, 12)
+	CardCorner.Parent = Card
+	
+	local CardIcon = Instance.new("TextLabel")
+	CardIcon.Text = icon
+	CardIcon.Size = UDim2.new(0, 40, 0, 40)
+	CardIcon.Position = UDim2.new(0, 15, 0, 10)
+	CardIcon.BackgroundTransparency = 1
+	CardIcon.TextColor3 = Color3.fromRGB(138, 43, 226)
+	CardIcon.Font = Enum.Font.GothamBold
+	CardIcon.TextSize = 24
+	CardIcon.Parent = Card
+	
+	local CardTitle = Instance.new("TextLabel")
+	CardTitle.Text = title
+	CardTitle.Size = UDim2.new(1, -70, 0, 20)
+	CardTitle.Position = UDim2.new(0, 15, 0, 52)
+	CardTitle.BackgroundTransparency = 1
+	CardTitle.TextColor3 = Color3.fromRGB(150, 150, 160)
+	CardTitle.Font = Enum.Font.Gotham
+	CardTitle.TextSize = 11
+	CardTitle.TextXAlignment = Enum.TextXAlignment.Left
+	CardTitle.Parent = Card
+	
+	local CardValue = Instance.new("TextLabel")
+	CardValue.Text = value
+	CardValue.Size = UDim2.new(0, 100, 0, 25)
+	CardValue.Position = UDim2.new(0, 65, 0, 15)
+	CardValue.BackgroundTransparency = 1
+	CardValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+	CardValue.Font = Enum.Font.GothamBold
+	CardValue.TextSize = 18
+	CardValue.TextXAlignment = Enum.TextXAlignment.Left
+	CardValue.Parent = Card
+	
+	return Card
 end
+
+CreateStatCard("Scripts Loaded", "247", "📜", 0)
+CreateStatCard("Executions", "1.2K", "⚡", 1)
+CreateStatCard("Uptime", "99.9%", "⏱️", 2)
+CreateStatCard("Performance", "GACOR", "🔥", 3)
+
+-- 🚀 Executor Page
+local Executor = Instance.new("Frame")
+Executor.Name = "Executor"
+Executor.Size = UDim2.new(1, 0, 1, 0)
+Executor.BackgroundTransparency = 1
+Executor.Visible = false
+Executor.Parent = ContentFrame
+
+local ExecPadding = Instance.new("UIPadding")
+ExecPadding.PaddingLeft = UDim.new(0, 15)
+ExecPadding.PaddingRight = UDim.new(0, 15)
+ExecPadding.PaddingTop = UDim.new(0, 15)
+ExecPadding.PaddingBottom = UDim.new(0, 15)
+ExecPadding.Parent = Executor
+
+local ScriptBox = Instance.new("TextBox")
+ScriptBox.Size = UDim2.new(1, 0, 1, -50)
+ScriptBox.BackgroundColor3 = Color3.fromRGB(18, 18, 25)
+ScriptBox.TextColor3 = Color3.fromRGB(200, 200, 200)
+ScriptBox.Font = Enum.Font.Code
+ScriptBox.TextSize = 14
+ScriptBox.Text = "-- Enter your script here\nprint('DUNHILL Executor GACOR!')"
+ScriptBox.TextXAlignment = Enum.TextXAlignment.Left
+ScriptBox.TextYAlignment = Enum.TextYAlignment.Top
+ScriptBox.ClearTextOnFocus = false
+ScriptBox.MultiLine = true
+ScriptBox.Parent = Executor
+
+local BoxCorner = Instance.new("UICorner")
+BoxCorner.CornerRadius = UDim.new(0, 10)
+BoxCorner.Parent = ScriptBox
+
+local BoxPadding = Instance.new("UIPadding")
+BoxPadding.PaddingLeft = UDim.new(0, 10)
+BoxPadding.PaddingTop = UDim.new(0, 10)
+BoxPadding.Parent = ScriptBox
+
+-- Execute Button
+local ExecuteBtn = Instance.new("TextButton")
+ExecuteBtn.Size = UDim2.new(0.48, 0, 0, 40)
+ExecuteBtn.Position = UDim2.new(0, 0, 1, -40)
+ExecuteBtn.BackgroundColor3 = Color3.fromRGB(138, 43, 226)
+ExecuteBtn.Text = "⚡ EXECUTE"
+ExecuteBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+ExecuteBtn.Font = Enum.Font.GothamBold
+ExecuteBtn.TextSize = 14
+ExecuteBtn.Parent = Executor
+
+local ExecCorner = Instance.new("UICorner")
+ExecCorner.CornerRadius = UDim.new(0, 10)
+ExecCorner.Parent = ExecuteBtn
+
+ExecuteBtn.MouseEnter:Connect(function()
+	smoothTween(ExecuteBtn, {BackgroundColor3 = Color3.fromRGB(158, 63, 246)}, 0.2)
+end)
+
+ExecuteBtn.MouseLeave:Connect(function()
+	smoothTween(ExecuteBtn, {BackgroundColor3 = Color3.fromRGB(138, 43, 226)}, 0.2)
+end)
+
+ExecuteBtn.MouseButton1Click:Connect(function()
+	local success, err = pcall(function()
+		loadstring(ScriptBox.Text)()
+	end)
+	if success then
+		ExecuteBtn.Text = "✓ EXECUTED!"
+		wait(1)
+		ExecuteBtn.Text = "⚡ EXECUTE"
+	else
+		ExecuteBtn.Text = "✗ ERROR"
+		wait(1)
+		ExecuteBtn.Text = "⚡ EXECUTE"
+	end
+end)
+
+-- Clear Button
+local ClearBtn = Instance.new("TextButton")
+ClearBtn.Size = UDim2.new(0.48, 0, 0, 40)
+ClearBtn.Position = UDim2.new(0.52, 0, 1, -40)
+ClearBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
+ClearBtn.Text = "🗑️ CLEAR"
+ClearBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+ClearBtn.Font = Enum.Font.GothamBold
+ClearBtn.TextSize = 14
+ClearBtn.Parent = Executor
+
+local ClearCorner = Instance.new("UICorner")
+ClearCorner.CornerRadius = UDim.new(0, 10)
+ClearCorner.Parent = ClearBtn
+
+ClearBtn.MouseEnter:Connect(function()
+	smoothTween(ClearBtn, {BackgroundColor3 = Color3.fromRGB(60, 60, 70)}, 0.2)
+end)
+
+ClearBtn.MouseLeave:Connect(function()
+	smoothTween(ClearBtn, {BackgroundColor3 = Color3.fromRGB(40, 40, 50)}, 0.2)
+end)
+
+ClearBtn.MouseButton1Click:Connect(function()
+	ScriptBox.Text = ""
+end)
+
+-- 📜 Scripts Page
+local Scripts = Instance.new("ScrollingFrame")
+Scripts.Name = "Scripts"
+Scripts.Size = UDim2.new(1, 0, 1, 0)
+Scripts.BackgroundTransparency = 1
+Scripts.BorderSizePixel = 0
+Scripts.ScrollBarThickness = 4
+Scripts.ScrollBarImageColor3 = Color3.fromRGB(138, 43, 226)
+Scripts.Visible = false
+Scripts.Parent = ContentFrame
+
+local ScriptsList = Instance.new("UIListLayout")
+ScriptsList.Padding = UDim.new(0, 10)
+ScriptsList.HorizontalAlignment = Enum.HorizontalAlignment.Center
+ScriptsList.Parent = Scripts
+
+local ScriptsPadding = Instance.new("UIPadding")
+ScriptsPadding.PaddingTop = UDim.new(0, 15)
+ScriptsPadding.PaddingLeft = UDim.new(0, 15)
+ScriptsPadding.PaddingRight = UDim.new(0, 15)
+ScriptsPadding.Parent = Scripts
+
+-- Script Hub Title
+local ScriptsTitle = Instance.new("TextLabel")
+ScriptsTitle.Text = "📜 Script Hub"
+ScriptsTitle.Size = UDim2.new(1, -20, 0, 30)
+ScriptsTitle.BackgroundTransparency = 1
+ScriptsTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+ScriptsTitle.Font = Enum.Font.GothamBold
+ScriptsTitle.TextSize = 18
+ScriptsTitle.TextXAlignment = Enum.TextXAlignment.Left
+ScriptsTitle.Parent = Scripts
+
+-- ⚙️ Settings Page
+local Settings = Instance.new("ScrollingFrame")
+Settings.Name = "Settings"
+Settings.Size = UDim2.new(1, 0, 1, 0)
+Settings.BackgroundTransparency = 1
+Settings.BorderSizePixel = 0
+Settings.ScrollBarThickness = 4
+Settings.ScrollBarImageColor3 = Color3.fromRGB(138, 43, 226)
+Settings.Visible = false
+Settings.Parent = ContentFrame
+
+local SettingsList = Instance.new("UIListLayout")
+SettingsList.Padding = UDim.new(0, 15)
+SettingsList.HorizontalAlignment = Enum.HorizontalAlignment.Center
+SettingsList.Parent = Settings
+
+local SettingsPadding = Instance.new("UIPadding")
+SettingsPadding.PaddingTop = UDim.new(0, 15)
+SettingsPadding.PaddingLeft = UDim.new(0, 15)
+SettingsPadding.PaddingRight = UDim.new(0, 15)
+SettingsPadding.Parent = Settings
+
+local SettingsTitle = Instance.new
