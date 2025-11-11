@@ -1,0 +1,172 @@
+-- 🖤 DUNHILL UI | Modern Executor GUI (By ChatGPT x RezxyStore)
+-- Compatible with Delta / Xeno / Arceus X
+-- Clean, draggable, dark-themed design
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:FindFirstChildOfClass("PlayerGui") or player:WaitForChild("PlayerGui")
+
+-- 🧱 GUI Root
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "DUNHILL_UI"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = playerGui
+
+-- 🪟 Main Window
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Size = UDim2.new(0, 450, 0, 300)
+MainFrame.Position = UDim2.new(0.5, -225, 0.5, -150)
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+MainFrame.BorderSizePixel = 0
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.Parent = ScreenGui
+
+-- 🔳 UI Corners & Shadow
+local Corner = Instance.new("UICorner")
+Corner.CornerRadius = UDim.new(0, 12)
+Corner.Parent = MainFrame
+
+local Shadow = Instance.new("ImageLabel")
+Shadow.Name = "Shadow"
+Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+Shadow.Position = UDim2.new(0.5, 0, 0.5, 6)
+Shadow.Size = UDim2.new(1, 40, 1, 40)
+Shadow.BackgroundTransparency = 1
+Shadow.Image = "rbxassetid://1316045217"
+Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+Shadow.ImageTransparency = 0.8
+Shadow.ScaleType = Enum.ScaleType.Slice
+Shadow.SliceCenter = Rect.new(10, 10, 118, 118)
+Shadow.Parent = MainFrame
+
+-- 🧭 Top Bar
+local TopBar = Instance.new("Frame")
+TopBar.Name = "TopBar"
+TopBar.Size = UDim2.new(1, 0, 0, 35)
+TopBar.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+TopBar.BorderSizePixel = 0
+TopBar.Parent = MainFrame
+
+local TopCorner = Instance.new("UICorner")
+TopCorner.CornerRadius = UDim.new(0, 12)
+TopCorner.Parent = TopBar
+
+-- 🧠 Title
+local Title = Instance.new("TextLabel")
+Title.Name = "Title"
+Title.Text = "DUNHILL EXECUTOR"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 16
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0, 12, 0, 5)
+Title.Size = UDim2.new(0.6, 0, 1, -10)
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Parent = TopBar
+
+-- ❌ Close Button
+local CloseButton = Instance.new("TextButton")
+CloseButton.Name = "Close"
+CloseButton.Size = UDim2.new(0, 30, 0, 30)
+CloseButton.Position = UDim2.new(1, -35, 0, 2)
+CloseButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+CloseButton.Text = "✕"
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.Font = Enum.Font.GothamBold
+CloseButton.TextSize = 14
+CloseButton.Parent = TopBar
+
+local CloseCorner = Instance.new("UICorner")
+CloseCorner.CornerRadius = UDim.new(0, 8)
+CloseCorner.Parent = CloseButton
+
+CloseButton.MouseButton1Click:Connect(function()
+	ScreenGui:Destroy()
+end)
+
+-- 🧩 Tabs Section
+local TabHolder = Instance.new("Frame")
+TabHolder.Name = "TabHolder"
+TabHolder.Size = UDim2.new(0, 120, 1, -35)
+TabHolder.Position = UDim2.new(0, 0, 0, 35)
+TabHolder.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+TabHolder.BorderSizePixel = 0
+TabHolder.Parent = MainFrame
+
+local TabsLayout = Instance.new("UIListLayout")
+TabsLayout.Padding = UDim.new(0, 8)
+TabsLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+TabsLayout.SortOrder = Enum.SortOrder.LayoutOrder
+TabsLayout.Parent = TabHolder
+
+-- 🧭 Content Section
+local ContentFrame = Instance.new("Frame")
+ContentFrame.Name = "Content"
+ContentFrame.Size = UDim2.new(1, -120, 1, -35)
+ContentFrame.Position = UDim2.new(0, 120, 0, 35)
+ContentFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+ContentFrame.BorderSizePixel = 0
+ContentFrame.Parent = MainFrame
+
+local ContentCorner = Instance.new("UICorner")
+ContentCorner.CornerRadius = UDim.new(0, 12)
+ContentCorner.Parent = ContentFrame
+
+-- 🌑 Example Tabs
+local function CreateTab(name)
+	local Tab = Instance.new("TextButton")
+	Tab.Name = name
+	Tab.Text = name
+	Tab.Size = UDim2.new(1, -10, 0, 30)
+	Tab.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	Tab.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Tab.Font = Enum.Font.Gotham
+	Tab.TextSize = 14
+	Tab.Parent = TabHolder
+	local TabCorner = Instance.new("UICorner")
+	TabCorner.CornerRadius = UDim.new(0, 6)
+	TabCorner.Parent = Tab
+
+	Tab.MouseButton1Click:Connect(function()
+		for _, frame in pairs(ContentFrame:GetChildren()) do
+			if frame:IsA("Frame") then
+				frame.Visible = false
+			end
+		end
+		local page = ContentFrame:FindFirstChild(name)
+		if page then
+			page.Visible = true
+		end
+	end)
+end
+
+-- 🪄 Create Tabs
+CreateTab("Home")
+CreateTab("Scripts")
+CreateTab("Settings")
+
+-- 📃 Home Page
+local Home = Instance.new("Frame")
+Home.Name = "Home"
+Home.Size = UDim2.new(1, 0, 1, 0)
+Home.BackgroundTransparency = 1
+Home.Parent = ContentFrame
+
+local HomeText = Instance.new("TextLabel")
+HomeText.Text = "Welcome to DUNHILL Executor UI"
+HomeText.Size = UDim2.new(1, 0, 0, 30)
+HomeText.Position = UDim2.new(0, 0, 0, 30)
+HomeText.BackgroundTransparency = 1
+HomeText.TextColor3 = Color3.fromRGB(200, 200, 200)
+HomeText.Font = Enum.Font.Gotham
+HomeText.TextSize = 16
+HomeText.Parent = Home
+
+-- Hide all pages except Home
+for _, f in pairs(ContentFrame:GetChildren()) do
+	if f:IsA("Frame") and f.Name ~= "Home" then
+		f.Visible = false
+	end
+end
